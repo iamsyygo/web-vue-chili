@@ -17,7 +17,7 @@ export default defineConfig({
     VueRouter({
       routesFolder: 'src/views',
       // Exclude directories prefixed with “_”
-      exclude: ['src/views/**/_*[\\w-]*'],
+      exclude: ['src/views/**/_*[\\w-]*', 'src/views/**/src'],
       extensions: ['.vue'],
       importMode: 'async',
     }),
