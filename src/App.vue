@@ -30,7 +30,7 @@ const transitionProps: TransitionProps = {
 </script>
 
 <template>
-  <div>
+  <div style="height: 550vh">
     <el-radio-group v-model="valueRoute" @change="setRoutePath">
       <el-radio v-for="route in routes" :key="route.path" :label="route.path">
         {{ route.meta?.title || route.path || route.name }}
@@ -60,6 +60,13 @@ const transitionProps: TransitionProps = {
       </transition>
     </router-view>
   </div>
+  <noscript class="loading-lazy">
+    <img
+      src="https://oss-cn-hangzhou.aliyuncs.com/codingsky/cdn/img/2023-07-06/347aaadb07e601783037e52d903af43e"
+      loading="lazy"
+      class="logo"
+    />
+  </noscript>
 </template>
 
 <style scoped lang="scss">
@@ -71,7 +78,7 @@ $name: App;
   will-change: filter;
   transition: filter 300ms;
 
-  @debug 🔥 $name;
+  // @debug 🔥 $name;
 }
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
