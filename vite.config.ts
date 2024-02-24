@@ -3,7 +3,7 @@ import Vue from '@vitejs/plugin-vue';
 import Unocss from 'unocss/vite';
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
+import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers';
 import { fileURLToPath, URL } from 'node:url';
 
 // https://github.com/posva/unplugin-vue-router
@@ -28,11 +28,15 @@ export default defineConfig({
     Unocss(),
     Vue(),
     AutoImport({
-      resolvers: [ElementPlusResolver()],
+      resolvers: [AntDesignVueResolver({})],
       imports: [VueRouterAutoImports],
     }),
     Components({
-      resolvers: [ElementPlusResolver()],
+      resolvers: [
+        AntDesignVueResolver({
+          importStyle: false,
+        }),
+      ],
     }),
     Inspect(),
     ImportCdn({

@@ -1,23 +1,39 @@
-<style scoped></style>
-<script setup lang="ts">
-import { ref } from 'vue';
-
-defineProps<{
-  routeMeta: Record<keyof any, any>;
-}>();
-
-const valueSwitch = ref(false);
-</script>
-
 <template>
-  <div>
-    🎉{{ routeMeta.title }}
-    <el-switch v-model="valueSwitch" :active-value="true" :inactive-value="false" @change="">
-    </el-switch>
-  </div>
+  <a-descriptions title="User Info" bordered>
+    <a-descriptions-item label="Product">Cloud Database</a-descriptions-item>
+    <a-descriptions-item label="Billing Mode">Prepaid</a-descriptions-item>
+    <a-descriptions-item label="Automatic Renewal">YES</a-descriptions-item>
+    <a-descriptions-item label="Order time">2018-04-24 18:00:00</a-descriptions-item>
+    <a-descriptions-item label="Usage Time" :span="2">2019-04-24 18:00:00</a-descriptions-item>
+    <a-descriptions-item label="Status" :span="3">
+      <a-badge status="processing" text="Running" />
+    </a-descriptions-item>
+    <a-descriptions-item label="Negotiated Amount">$80.00</a-descriptions-item>
+    <a-descriptions-item label="Discount">$20.00</a-descriptions-item>
+    <a-descriptions-item label="Official Receipts">$60.00</a-descriptions-item>
+    <a-descriptions-item label="Config Info">
+      Data disk type: MongoDB
+      <br />
+      Database version: 3.4
+      <br />
+      Package: dds.mongo.mid
+      <br />
+      Storage space: 10 GB
+      <br />
+      Replication factor: 3
+      <br />
+      Region: East China 1
+      <br />
+    </a-descriptions-item>
+  </a-descriptions>
 </template>
 
-<style scoped></style>
+<style lang="scss" scoped>
+:deep(#components-grid-demo-flex) [class~='ant-row'] {
+  background: rgba(128, 128, 128, 0.08);
+}
+</style>
+
 <route lang="json">
-{ "meta": { "keepAlive": false } }
+{ "meta": { "keepAlive": false, "icon": "knowledge_one", "title": "知识一" } }
 </route>

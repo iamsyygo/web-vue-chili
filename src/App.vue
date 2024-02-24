@@ -1,89 +1,108 @@
 <script setup lang="ts">
-import { TransitionProps } from 'vue';
-import { computed } from 'vue';
-import { onMounted } from 'vue';
-import { ref, h } from 'vue';
+import { ref, onMounted, TransitionProps } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
+import { APP_THEME_CONFIG } from '@/utils/theme';
+import AppLayout from '@/components/Layout.vue';
 
 const router = useRouter();
 const route = useRoute();
 const routes = router.getRoutes();
 const valueRoute = ref();
-function setRoutePath(path: any) {
-  router.push(path);
-}
 console.log(routes, '🔥');
-
 onMounted(() => {
   valueRoute.value = route.path;
 });
 const transitionProps: TransitionProps = {
-  name: '',
+  name: 'app-top-page',
   appear: true,
   mode: 'out-in',
-  duration: 300,
-  enterToClass: 'animate__animated animate__bounceInRight',
-  enterFromClass: 'animate__animated animate__bounceInLeft',
-  leaveToClass: 'animate__animated animate__bounceOutLeft',
-  leaveFromClass: 'animate__animated animate__bounceInRight',
+  // enterActiveClass: 'animate__animated animate__fadeInRightBig',
+  // leaveActiveClass: 'animate__animated animate__zoomOut',
 };
 </script>
 
 <template>
-  <div style="height: 550vh">
-    <el-radio-group v-model="valueRoute" @change="setRoutePath">
-      <el-radio v-for="route in routes" :key="route.path" :label="route.path">
-        {{ route.meta?.title || route.path || route.name }}
-      </el-radio>
-    </el-radio-group>
-
-    <router-view v-slot="{ Component, route }" v-if="route.meta?.keepAlive === false">
-      <transition v-bind="transitionProps">
-        <component :is="Component" :route-meta="route.meta" :key="route.fullPath">
-          <!-- some slot content -->
-        </component>
-      </transition>
-    </router-view>
-
-    <router-view v-slot="{ Component, route }">
-      <transition v-bind="transitionProps">
-        <keep-alive :max="12">
-          <component
-            :is="Component"
-            :route-meta="route.meta"
-            :key="route.fullPath"
-            v-if="route.meta?.keepAlive !== false"
-          >
+  <a-config-provider :theme="APP_THEME_CONFIG">
+    <AppLayout>
+      <template #logo="{ collapsed }">
+        <div class="logo" :style="{ padding: collapsed ? '6px 10px' : '6px 12px' }">
+          🛵
+          <transition :duration="{ enter: 3000, leave: 0 }" name="logo-title">
+            <h5 v-show="!collapsed">iamsyygo</h5>
+          </transition>
+        </div>
+      </template>
+      <router-view v-slot="{ Component, route }" v-if="route.meta?.keepAlive === false">
+        <transition v-bind="transitionProps">
+          <component :is="Component" :route-meta="route.meta" :key="route.fullPath">
             <!-- some slot content -->
           </component>
-        </keep-alive>
-      </transition>
-    </router-view>
-  </div>
-  <noscript class="loading-lazy">
-    <img
-      src="https://oss-cn-hangzhou.aliyuncs.com/codingsky/cdn/img/2023-07-06/347aaadb07e601783037e52d903af43e"
-      loading="lazy"
-      class="logo"
-    />
-  </noscript>
+        </transition>
+      </router-view>
+
+      <router-view v-slot="{ Component, route }">
+        <transition v-bind="transitionProps">
+          <keep-alive :max="12">
+            <component
+              :is="Component"
+              :route-meta="route.meta"
+              :key="route.fullPath"
+              v-if="route.meta?.keepAlive !== false"
+            >
+              <!-- some slot content -->
+            </component>
+          </keep-alive>
+        </transition>
+      </router-view>
+    </AppLayout>
+  </a-config-provider>
 </template>
 
 <style scoped lang="scss">
 $name: App;
 
 .logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 8px;
+  padding: 6px 12px;
+  font-size: 25px;
+  border-radius: 6px;
+  background: rgba(116, 116, 116, 0.1);
+  h5 {
+    font-weight: 700;
+  }
 
-  // @debug 🔥 $name;
+  animation: logoframe 10s infinite;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+@keyframes logoframe {
+  0% {
+    filter: drop-shadow(0 0 6px #f0b03a);
+  }
+  50% {
+    filter: drop-shadow(0 0 6px #fd4816);
+  }
+  100% {
+    filter: drop-shadow(0 0 6px #f0b03a);
+  }
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+
+.logo-title-enter-active {
+  animation: bounceInRight 1s;
+}
+.app-top-page-enter-active {
+  animation: fadeInRightBig 0.8s;
+}
+.app-top-page-leave-active {
+  position: relative;
+  transition: all 0.3s;
+}
+.app-top-page-leave-to {
+  opacity: 0;
+}
+.app-top-page-leave-from {
+  opacity: 1;
 }
 </style>

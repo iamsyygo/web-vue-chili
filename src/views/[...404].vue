@@ -1,10 +1,20 @@
 <!-- Catch all / 404 Not found route -->
 
 <template>
-  <div>404</div>
+  <div class="flex justify-center items-center">
+    <symbol-icon
+      icon="ninsuofangwendeyemianbucunzai-quanju"
+      :size="600"
+      :color="token.colorPrimary"
+    />
+  </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { theme } from 'ant-design-vue';
+const { useToken } = theme;
+const { token } = useToken();
+</script>
 
 <style scoped></style>
 <route lang="json">
