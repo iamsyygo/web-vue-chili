@@ -32,7 +32,11 @@ const transitionProps: TransitionProps = {
           </transition>
         </div>
       </template>
-      <router-view v-slot="{ Component, route }" v-if="route.meta?.keepAlive === false">
+      <router-view
+        v-slot="{ Component, route }"
+        v-if="route.meta?.keepAlive === false"
+        class="app-router-view"
+      >
         <transition v-bind="transitionProps">
           <component :is="Component" :route-meta="route.meta" :key="route.fullPath">
             <!-- some slot content -->
@@ -40,7 +44,7 @@ const transitionProps: TransitionProps = {
         </transition>
       </router-view>
 
-      <router-view v-slot="{ Component, route }">
+      <router-view v-slot="{ Component, route }" class="app-router-view">
         <transition v-bind="transitionProps">
           <keep-alive :max="12">
             <component
@@ -93,16 +97,15 @@ $name: App;
   animation: bounceInRight 1s;
 }
 .app-top-page-enter-active {
-  animation: fadeInRightBig 0.8s;
+  animation: fadeInRightBig 0.5s;
 }
 .app-top-page-leave-active {
-  position: relative;
-  transition: all 0.3s;
+  animation: zoomOut 0.3s;
 }
-.app-top-page-leave-to {
-  opacity: 0;
-}
-.app-top-page-leave-from {
-  opacity: 1;
+
+// fix 2 router-view position not overlap displaced unfriendly experience.
+.app-router-view {
+  position: absolute;
+  top: 0;
 }
 </style>

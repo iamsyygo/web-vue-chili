@@ -1,7 +1,7 @@
 <!-- Catch all / 404 Not found route -->
 
 <template>
-  <div class="flex justify-center items-center">
+  <div class="flex justify-center items-center w-full">
     <symbol-icon
       icon="ninsuofangwendeyemianbucunzai-quanju"
       :size="600"
