@@ -1,14 +1,15 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, TransitionProps } from 'vue';
-import { useRouter, useRoute } from 'vue-router';
-import { APP_THEME_CONFIG } from '@/utils/theme';
+import { ref, computed, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+import { ThemeConfig } from 'ant-design-vue/es/config-provider/context';
 import AppLayout from '@/components/AppLayout.vue';
+import AppHeader from '@/components/AppHeader.vue';
 import { theme } from 'ant-design-vue';
 import { AppMenuItemMeta } from '@/components/layout';
-const { useToken } = theme;
+import { reactive } from 'vue';
+const { useToken, compactAlgorithm, darkAlgorithm } = theme;
 const { token } = useToken();
 const router = useRouter();
-const route = useRoute();
 
 onMounted(() => {
   const routes = router.getRoutes();
@@ -19,6 +20,32 @@ const menus = computed<AppMenuItemMeta[]>(() => {
   const routes = router.getRoutes();
   return onRoutes2MenuTrees(routes);
 });
+
+const t: ThemeConfig = reactive({
+  algorithm: [compactAlgorithm],
+  locale: 'zh-CN',
+  // icon: {
+  //   prefixCls: 'anticon',
+  //   scriptUrl: '//at.alicdn.com/t/font_2756543_7z5z5z5z5z5.js',
+  // },
+});
+const themealg = ref('dark');
+// 切换主题
+function toggletheme() {
+  if (themealg.value === 'light') {
+    t.algorithm = Array.isArray(t.algorithm)
+      ? t.algorithm?.concat(darkAlgorithm)
+      : [compactAlgorithm, darkAlgorithm];
+    themealg.value = 'dark';
+    return;
+  }
+  t.algorithm = Array.isArray(t.algorithm)
+    ? t.algorithm?.filter((a) => a !== darkAlgorithm)
+    : [compactAlgorithm];
+  themealg.value = 'light';
+}
+// make default theme is light
+toggletheme();
 
 // @ts-expect-error
 function onRoutes2MenuTrees(routes: RouteRecordRaw[]) {
@@ -33,17 +60,11 @@ function onRoutes2MenuTrees(routes: RouteRecordRaw[]) {
   });
 }
 
-const transProps: TransitionProps = {
-  name: 'app-top-page',
-  appear: true,
-  mode: 'out-in',
-};
-
 const layout = ref({
   sider: {
     width: 200,
     collapsedWidth: 60,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: token.value.colorBgContainer,
   },
   header: {
     height: 56,
@@ -53,7 +74,7 @@ const layout = ref({
 </script>
 
 <template>
-  <a-config-provider :theme="APP_THEME_CONFIG" componentSize="middle">
+  <a-config-provider :theme="t" componentSize="middle">
     <AppLayout :menus="menus" :layout="layout">
       <template #logo="{ collapsed }">
         <div class="logo" :style="{ padding: collapsed ? '6px 10px' : '6px 12px' }">
@@ -63,39 +84,15 @@ const layout = ref({
           </transition>
         </div>
       </template>
-      <router-view
-        v-slot="{ Component, route }"
-        v-if="route.meta?.keepAlive === false"
-        class="app-router-view"
-      >
-        <transition v-bind="transProps">
-          <component :is="Component" :route-meta="route.meta" :key="route.fullPath">
-            <!-- some slot content -->
-          </component>
-        </transition>
-      </router-view>
-
-      <router-view v-slot="{ Component, route }" class="app-router-view">
-        <transition v-bind="transProps">
-          <keep-alive :max="12">
-            <component
-              :is="Component"
-              :route-meta="route.meta"
-              :key="route.fullPath"
-              v-if="route.meta?.keepAlive !== false"
-            >
-              <!-- some slot content -->
-            </component>
-          </keep-alive>
-        </transition>
-      </router-view>
+      <template #header>
+        <AppHeader @change="toggletheme" />
+      </template>
     </AppLayout>
   </a-config-provider>
 </template>
 
 <style scoped lang="scss">
 $name: App;
-
 .logo {
   overflow: hidden;
   display: flex;
@@ -105,7 +102,8 @@ $name: App;
   padding: 6px 12px;
   font-size: 25px;
   border-radius: 6px;
-  background: rgba(116, 116, 116, 0.1);
+  background-color: v-bind('token.colorFillSecondary');
+  color: v-bind('token.colorText');
   h5 {
     font-weight: 700;
   }
@@ -126,17 +124,5 @@ $name: App;
 
 .logo-title-enter-active {
   animation: bounceInRight 1s;
-}
-.app-top-page-enter-active {
-  animation: fadeInRightBig 0.5s;
-}
-.app-top-page-leave-active {
-  animation: zoomOut 0.3s;
-}
-
-// fix 2 router-view position not overlap displaced unfriendly experience.
-.app-router-view {
-  position: absolute;
-  top: 0;
 }
 </style>

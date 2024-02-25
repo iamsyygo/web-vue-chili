@@ -11,10 +11,10 @@
     >
       <a-tab-pane v-for="pane in props.modelValue" :key="pane.path" closable>
         <template #tab>
-          <svg class="app-tab-radius--b" width="8" height="8" v-show="$route.path == pane.path">
+          <svg class="app-tab-radius--b" width="7" height="7" v-show="$route.path == pane.path">
             <path d="M 0 7 A 7 7 0 0 0 7 0 L 7 7 Z"></path>
           </svg>
-          <svg class="app-tab-radius--a" width="8" height="8" v-show="$route.path == pane.path">
+          <svg class="app-tab-radius--a" width="7" height="7" v-show="$route.path == pane.path">
             <path d="M 0 0 A 7 7 0 0 0 7 7 L 0 7 Z"></path>
           </svg>
           <symbol-icon
@@ -64,7 +64,7 @@ function onchange(activeKey: Key, _: MouseEvent | KeyboardEvent) {
 </script>
 
 <style lang="scss" scoped>
-$-tab-active-bg: #f6f6f6;
+$-tab-active-bg: v-bind('token.colorBgLayout');
 $-tab-height: 30px;
 $-tab-width: 130px;
 $-tab-radius: 8px;
@@ -82,13 +82,16 @@ $-tab-radius: 8px;
 
 .app-tabs-wrapper {
   padding-top: 3px;
-  background-color: #fff;
+  background-color: v-bind('token.colorBgElevated');
 }
 .app-tabs--nav {
   user-select: none;
   height: $-tab-height;
   :deep(.ant-tabs-nav) {
     height: $-tab-height;
+    &::before {
+      display: none;
+    }
   }
 
   :deep(.ant-tabs-tab-btn) {
@@ -104,11 +107,12 @@ $-tab-radius: 8px;
     height: 16px;
     line-height: 16px;
     text-align: center;
+    color: v-bind('token.colorText');
     padding: 0;
     margin: 0;
 
     &:hover {
-      background-color: rgba(219, 219, 219, 0.9);
+      background-color: v-bind('token.colorTextQuaternary');
     }
   }
 }
@@ -134,9 +138,10 @@ $-tab-radius: 8px;
   }
 
   &:hover {
-    color: #000;
+    color: v-bind('token.colorText');
     border-radius: $-tab-radius !important;
-    background-color: v-bind('token.colorPrimaryBg');
+    /* background-color: rgba(255, 255, 255, 0.2); */
+    background-color: v-bind('token.colorFill');
 
     @include remove-show(1);
     @include display-before;

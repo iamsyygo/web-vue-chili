@@ -4,6 +4,7 @@
       v-model:collapsed="collapsed"
       :width="layout.sider.width"
       :collapsedWidth="layout.sider.collapsedWidth"
+      theme="light"
       class="app-layout-sider"
     >
       <slot name="logo" :collapsed="collapsed" :layout="layout"> </slot>
@@ -18,6 +19,7 @@
           v-model:active-key="activeKey"
           v-model:selected-keys="selectKeys"
           theme="light"
+          :style="{ backgroundColor: token.colorBgContainer }"
           @select="onSelectMenu"
         >
           <app-sider-menu-item v-for="item in menus" :key="item.path" :menu="item" />
@@ -31,19 +33,51 @@
 
       <a-layout-content>
         <layout-tab v-model="records" @change="setRoute" />
-        <div style="margin: 10px; position: relative"><slot></slot></div>
+        <div style="margin: 10px; position: relative">
+          <slot>
+            <router-view
+              v-slot="{ Component, route }"
+              v-if="route.meta?.keepAlive === false"
+              class="app-router-view"
+            >
+              <transition v-bind="transProps">
+                <component :is="Component" :route-meta="route.meta" :key="route.fullPath">
+                  <!-- some slot content -->
+                </component>
+              </transition>
+            </router-view>
+
+            <router-view v-slot="{ Component, route }" class="app-router-view">
+              <transition v-bind="transProps">
+                <keep-alive :max="12">
+                  <component
+                    :is="Component"
+                    :route-meta="route.meta"
+                    :key="route.fullPath"
+                    v-if="route.meta?.keepAlive !== false"
+                  >
+                    <!-- some slot content -->
+                  </component>
+                </keep-alive>
+              </transition>
+            </router-view>
+          </slot>
+        </div>
       </a-layout-content>
     </a-layout>
   </a-layout>
 </template>
 <script lang="ts" setup>
-import { ref, watchEffect } from 'vue';
+import { ref, watchEffect, TransitionProps } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { LeftOutlined } from '@ant-design/icons-vue';
 import LayoutTab from '@/components/AppLayoutTab.vue';
 import AppSiderMenuItem from '@/components/AppSiderMenuItem.vue';
 import { SelectInfo } from 'ant-design-vue/es/menu/src/interface';
 import { AppMenuItemMeta, LayoutType } from '@/components/layout';
+import { theme } from 'ant-design-vue';
+const { useToken } = theme;
+const { token } = useToken();
 
 const router = useRouter();
 const route = useRoute();
@@ -85,6 +119,12 @@ watchEffect(() => {
     });
   }
 });
+
+const transProps: TransitionProps = {
+  name: 'app-top-page',
+  appear: true,
+  mode: 'out-in',
+};
 </script>
 <style scoped lang="scss">
 $-app-layout-sider-width: calc(v-bind('layout.sider.width') * 1px);
@@ -95,7 +135,6 @@ $-app-layout-header-height: calc(v-bind('layout.header.height') * 1px);
   position: relative;
   z-index: 999;
   height: 100vh;
-  background-color: v-bind('layout.sider.backgroundColor');
 
   .app-sider-collapse--target {
     cursor: pointer;
@@ -106,16 +145,35 @@ $-app-layout-header-height: calc(v-bind('layout.header.height') * 1px);
     z-index: 1;
     font-size: 12px;
     padding: 3px;
-    background-color: #fff;
+    color: v-bind('token.colorText');
+    background-color: v-bind('token.colorBorderSecondary');
     border-radius: 50%;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  }
+
+  :deep(.ant-menu-root.ant-menu-vertical) {
+    border-inline-end: 0;
   }
 }
 
 .app-layout-header {
   position: sticky;
   top: 0;
+  padding: 0;
   height: $-app-layout-header-height;
   background-color: v-bind('layout.header.backgroundColor');
+}
+
+.app-top-page-enter-active {
+  animation: fadeInRightBig 0.5s;
+}
+.app-top-page-leave-active {
+  animation: zoomOut 0.3s;
+}
+
+// fix 2 router-view position not overlap displaced unfriendly experience.
+.app-router-view {
+  position: absolute;
+  top: 0;
 }
 </style>
