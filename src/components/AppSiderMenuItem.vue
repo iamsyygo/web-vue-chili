@@ -29,17 +29,12 @@
 </template>
 
 <script setup lang="ts">
-// @ts-expect-error
 import AIcon from '@ant-design/icons-vue';
 import AppSiderMenuItem from '@/components/AppSiderMenuItem.vue';
-export type MenuItemMeta = {
-  title: string;
-  icon: string;
-  path: string;
-  children?: MenuItemMeta[];
-};
+import { AppMenuItemMeta } from '@/components/layout';
+
 defineProps<{
-  menu: MenuItemMeta;
+  menu: AppMenuItemMeta;
 }>();
 </script>
 

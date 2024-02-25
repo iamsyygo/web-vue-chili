@@ -5,7 +5,7 @@
     <symbol-icon
       icon="ninsuofangwendeyemianbucunzai-quanju"
       :size="600"
-      :color="token.colorPrimary"
+      :color="token.colorPrimaryBorder"
     />
   </div>
 </template>

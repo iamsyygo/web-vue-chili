@@ -2,7 +2,7 @@
   <div class="app-tabs-wrapper">
     <a-tabs
       :activeKey="$route.path"
-      :type="props.modelValue.length === 1 ? 'card' : 'editable-card'"
+      :type="modelValue.length === 1 ? 'card' : 'editable-card'"
       size="small"
       hide-add
       class="app-tabs--nav"
@@ -11,16 +11,16 @@
     >
       <a-tab-pane v-for="pane in props.modelValue" :key="pane.path" closable>
         <template #tab>
-          <svg class="app-tab-radius--b" width="7" height="7" v-show="$route.path == pane.path">
+          <svg class="app-tab-radius--b" width="8" height="8" v-show="$route.path == pane.path">
             <path d="M 0 7 A 7 7 0 0 0 7 0 L 7 7 Z"></path>
           </svg>
-          <svg class="app-tab-radius--a" width="7" height="7" v-show="$route.path == pane.path">
+          <svg class="app-tab-radius--a" width="8" height="8" v-show="$route.path == pane.path">
             <path d="M 0 0 A 7 7 0 0 0 7 7 L 0 7 Z"></path>
           </svg>
           <symbol-icon
             :icon="pane.icon || 'ninsuofangwendeyemianbucunzai-quanju'"
             style="margin-right: 3px"
-          ></symbol-icon>
+          />
           {{ pane.title || pane.path }}
         </template>
       </a-tab-pane>
@@ -29,33 +29,34 @@
 </template>
 <script lang="ts" setup>
 import { theme } from 'ant-design-vue';
-import { MenuItemMeta } from '@/components/AppSiderMenuItem.vue';
 import { Key } from 'ant-design-vue/es/_util/type';
 import { useRoute } from 'vue-router';
-const route = useRoute();
+import { AppMenuItemMeta } from '@/components/layout';
 const { useToken } = theme;
 const { token } = useToken();
-
+const route = useRoute();
 const props = defineProps<{
-  modelValue: MenuItemMeta[];
+  modelValue: AppMenuItemMeta[];
 }>();
 
 const emits = defineEmits<{
-  change: [value: MenuItemMeta];
-  'update:modelValue': [value: MenuItemMeta[]]; // named tuple syntax
+  change: [value: AppMenuItemMeta];
+  'update:modelValue': [value: AppMenuItemMeta[]];
 }>();
-const onremove = (e: Key | MouseEvent | KeyboardEvent, action: 'add' | 'remove') => {
-  if (action === 'remove') {
-    const newVal = props.modelValue.filter(({ path }) => path !== e);
-    emits('update:modelValue', newVal);
 
-    const pre = newVal.at(-1);
-    if (!pre && route.path !== e) return;
-    // @ts-expect-error
-    emits('change', pre);
-  }
+const onremove = (e: Key | MouseEvent | KeyboardEvent, action: 'add' | 'remove') => {
+  if (action !== 'remove') return;
+
+  const newVal = props.modelValue.filter(({ path }) => path !== e);
+  emits('update:modelValue', newVal);
+
+  const pre = newVal.at(-1);
+  if (!pre && route.path !== e) return;
+  // @ts-expect-error
+  emits('change', pre);
 };
-function onchange(activeKey: Key, e: MouseEvent | KeyboardEvent) {
+
+function onchange(activeKey: Key, _: MouseEvent | KeyboardEvent) {
   const newVal = props.modelValue.find((v) => v.path === activeKey);
   if (!newVal) return;
   emits('change', newVal);
@@ -64,9 +65,18 @@ function onchange(activeKey: Key, e: MouseEvent | KeyboardEvent) {
 
 <style lang="scss" scoped>
 $-tab-active-bg: #f6f6f6;
+$-tab-height: 30px;
+$-tab-width: 130px;
+$-tab-radius: 8px;
 @mixin remove-show($opacity: 0, $cls: ant-tabs-tab-remove) {
   .#{$cls} {
     opacity: $opacity;
+  }
+}
+
+@mixin display-before($v: none) {
+  &::before {
+    display: $v;
   }
 }
 
@@ -75,14 +85,14 @@ $-tab-active-bg: #f6f6f6;
   background-color: #fff;
 }
 .app-tabs--nav {
-  height: 30px;
+  user-select: none;
+  height: $-tab-height;
   :deep(.ant-tabs-nav) {
-    user-select: none;
-    height: 30px;
+    height: $-tab-height;
   }
 
   :deep(.ant-tabs-tab-btn) {
-    width: 130px;
+    width: $-tab-width;
     overflow: hidden;
     text-overflow: ellipsis;
   }
@@ -92,8 +102,8 @@ $-tab-active-bg: #f6f6f6;
   :deep(.ant-tabs-tab-remove) {
     width: 16px;
     height: 16px;
-    text-align: center;
     line-height: 16px;
+    text-align: center;
     padding: 0;
     margin: 0;
 
@@ -107,57 +117,55 @@ $-tab-active-bg: #f6f6f6;
   position: relative;
   font-size: 12px;
   margin: 0;
-  border: 0;
-  border-radius: 8px !important;
   padding: 0 5px !important;
+  border: 0;
+  border-radius: $-tab-radius !important;
   background-color: transparent;
-
-  &:hover {
-    color: #000;
-    border-radius: 8px !important;
-    background-color: v-bind('token.colorPrimaryBg');
-
-    @include remove-show(1);
-  }
 
   &::before {
     content: '';
-    display: block;
     position: absolute;
     bottom: 50%;
     right: 0;
-    height: 60%;
     width: 1px;
+    height: 60%;
     transform: translate(1.5px, 50%);
     background-color: #ccc;
   }
 
+  &:hover {
+    color: #000;
+    border-radius: $-tab-radius !important;
+    background-color: v-bind('token.colorPrimaryBg');
+
+    @include remove-show(1);
+    @include display-before;
+  }
+
+  // 下一个兄弟元素是 .ant-tabs-tab:hover 时
+  // 下一个兄弟元素是 .ant-tabs-tab-active 时
+  &:has(+ .ant-tabs-tab:hover),
   &:has(+ .ant-tabs-tab-active) {
-    &::before {
-      display: none;
-    }
+    @include display-before;
   }
 
   @include remove-show(0);
 }
+
 .app-tabs--nav :deep(.ant-tabs-tab-active) {
   font-weight: 700;
-  border-top-left-radius: 6px !important;
-  border-top-right-radius: 6px !important;
+  border-radius: $-tab-radius !important;
   border-bottom-left-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
   background-color: $-tab-active-bg;
 
   &:hover {
-    background-color: $-tab-active-bg;
     border-bottom-left-radius: 0 !important;
     border-bottom-right-radius: 0 !important;
+    background-color: $-tab-active-bg;
   }
 
-  &::before {
-    display: none;
-  }
-
+  @include display-before;
   @include remove-show(1);
 }
 

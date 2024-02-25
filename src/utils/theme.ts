@@ -2,7 +2,7 @@
 import { ThemeConfig } from 'ant-design-vue/es/config-provider/context';
 import { theme } from 'ant-design-vue';
 
-const { defaultAlgorithm, compactAlgorithm } = theme;
+const { compactAlgorithm } = theme;
 // https://antdv.com/docs/vue/customize-theme-cn
 export const APP_THEME_CONFIG: ThemeConfig = {
   token: {

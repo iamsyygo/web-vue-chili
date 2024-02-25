@@ -1,29 +1,60 @@
 <script setup lang="ts">
-import { ref, onMounted, TransitionProps } from 'vue';
+import { ref, computed, onMounted, TransitionProps } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { APP_THEME_CONFIG } from '@/utils/theme';
-import AppLayout from '@/components/Layout.vue';
-
+import AppLayout from '@/components/AppLayout.vue';
+import { theme } from 'ant-design-vue';
+import { AppMenuItemMeta } from '@/components/layout';
+const { useToken } = theme;
+const { token } = useToken();
 const router = useRouter();
 const route = useRoute();
-const routes = router.getRoutes();
-const valueRoute = ref();
-console.log(routes, '🔥');
+
 onMounted(() => {
-  valueRoute.value = route.path;
+  const routes = router.getRoutes();
+  console.log(routes, '🔥');
 });
-const transitionProps: TransitionProps = {
+
+const menus = computed<AppMenuItemMeta[]>(() => {
+  const routes = router.getRoutes();
+  return onRoutes2MenuTrees(routes);
+});
+
+// @ts-expect-error
+function onRoutes2MenuTrees(routes: RouteRecordRaw[]) {
+  if (!routes.length) return;
+  return routes?.map((rt) => {
+    return {
+      icon: rt.meta?.icon,
+      path: rt.path,
+      title: rt.meta?.title,
+      children: onRoutes2MenuTrees(rt.children!),
+    };
+  });
+}
+
+const transProps: TransitionProps = {
   name: 'app-top-page',
   appear: true,
   mode: 'out-in',
-  // enterActiveClass: 'animate__animated animate__fadeInRightBig',
-  // leaveActiveClass: 'animate__animated animate__zoomOut',
 };
+
+const layout = ref({
+  sider: {
+    width: 200,
+    collapsedWidth: 60,
+    backgroundColor: '#FFFFFF',
+  },
+  header: {
+    height: 56,
+    backgroundColor: '#CADFFB',
+  },
+});
 </script>
 
 <template>
-  <a-config-provider :theme="APP_THEME_CONFIG">
-    <AppLayout>
+  <a-config-provider :theme="APP_THEME_CONFIG" componentSize="middle">
+    <AppLayout :menus="menus" :layout="layout">
       <template #logo="{ collapsed }">
         <div class="logo" :style="{ padding: collapsed ? '6px 10px' : '6px 12px' }">
           🛵
@@ -37,7 +68,7 @@ const transitionProps: TransitionProps = {
         v-if="route.meta?.keepAlive === false"
         class="app-router-view"
       >
-        <transition v-bind="transitionProps">
+        <transition v-bind="transProps">
           <component :is="Component" :route-meta="route.meta" :key="route.fullPath">
             <!-- some slot content -->
           </component>
@@ -45,7 +76,7 @@ const transitionProps: TransitionProps = {
       </router-view>
 
       <router-view v-slot="{ Component, route }" class="app-router-view">
-        <transition v-bind="transitionProps">
+        <transition v-bind="transProps">
           <keep-alive :max="12">
             <component
               :is="Component"
@@ -86,7 +117,7 @@ $name: App;
     filter: drop-shadow(0 0 6px #f0b03a);
   }
   50% {
-    filter: drop-shadow(0 0 6px #fd4816);
+    filter: drop-shadow(0 0 6px v-bind('token.colorPrimaryActive'));
   }
   100% {
     filter: drop-shadow(0 0 6px #f0b03a);
