@@ -23,7 +23,7 @@ const menus = computed<AppMenuItemMeta[]>(() => {
 // @ts-expect-error
 function onRoutes2MenuTrees(routes: RouteRecordRaw[]) {
   if (!routes.length) return;
-  return routes?.map((rt) => {
+  return routes.map((rt) => {
     return {
       icon: rt.meta?.icon,
       path: rt.path,

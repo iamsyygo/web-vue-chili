@@ -5,7 +5,7 @@
 </template>
 <script setup lang="ts">
 defineProps<{
-  icon: string;
+  icon?: string;
   size?: string | number;
   color?: string;
 }>();
