@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue';
-import { useRouter } from 'vue-router';
-import { ThemeConfig } from 'ant-design-vue/es/config-provider/context';
-import AppLayout from '@/components/AppLayout.vue';
 import AppHeader from '@/components/AppHeader.vue';
-import { theme } from 'ant-design-vue';
+import AppLayout from '@/components/AppLayout.vue';
 import { AppMenuItemMeta } from '@/components/layout';
-import { reactive } from 'vue';
-const { useToken, compactAlgorithm, darkAlgorithm } = theme;
+import { useAppConfigStore } from '@/store/app-config';
+import { theme as extTheme } from 'ant-design-vue';
+import { computed, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+const { useToken } = extTheme;
 const { token } = useToken();
 const router = useRouter();
+const appconfig = useAppConfigStore();
 
 onMounted(() => {
   const routes = router.getRoutes();
@@ -20,32 +20,6 @@ const menus = computed<AppMenuItemMeta[]>(() => {
   const routes = router.getRoutes();
   return onRoutes2MenuTrees(routes);
 });
-
-const t: ThemeConfig = reactive({
-  algorithm: [compactAlgorithm],
-  locale: 'zh-CN',
-  // icon: {
-  //   prefixCls: 'anticon',
-  //   scriptUrl: '//at.alicdn.com/t/font_2756543_7z5z5z5z5z5.js',
-  // },
-});
-const themealg = ref('dark');
-// 切换主题
-function toggletheme() {
-  if (themealg.value === 'light') {
-    t.algorithm = Array.isArray(t.algorithm)
-      ? t.algorithm?.concat(darkAlgorithm)
-      : [compactAlgorithm, darkAlgorithm];
-    themealg.value = 'dark';
-    return;
-  }
-  t.algorithm = Array.isArray(t.algorithm)
-    ? t.algorithm?.filter((a) => a !== darkAlgorithm)
-    : [compactAlgorithm];
-  themealg.value = 'light';
-}
-// make default theme is light
-toggletheme();
 
 // @ts-expect-error
 function onRoutes2MenuTrees(routes: RouteRecordRaw[]) {
@@ -59,23 +33,11 @@ function onRoutes2MenuTrees(routes: RouteRecordRaw[]) {
     };
   });
 }
-
-const layout = ref({
-  sider: {
-    width: 200,
-    collapsedWidth: 60,
-    backgroundColor: token.value.colorBgContainer,
-  },
-  header: {
-    height: 56,
-    backgroundColor: '#CADFFB',
-  },
-});
 </script>
 
 <template>
-  <a-config-provider :theme="t" componentSize="middle">
-    <AppLayout :menus="menus" :layout="layout">
+  <a-config-provider :theme="appconfig.theme" componentSize="middle">
+    <AppLayout :menus="menus" :layout="appconfig.layout">
       <template #logo="{ collapsed }">
         <div class="logo" :style="{ padding: collapsed ? '6px 10px' : '6px 12px' }">
           🛵
@@ -85,7 +47,7 @@ const layout = ref({
         </div>
       </template>
       <template #header>
-        <AppHeader @change="toggletheme" />
+        <AppHeader @change="appconfig.setThemeScheme" :themeScheme="appconfig.themeScheme" />
       </template>
     </AppLayout>
   </a-config-provider>
