@@ -152,8 +152,8 @@ $-app-layout-header-height: calc(v-bind('layout.header.height') * 1px);
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   }
 
-  :deep(.ant-menu-root.ant-menu-vertical) {
-    border-inline-end: 0;
+  :deep(.ant-menu-root.ant-menu-inline) {
+    border-inline-end: none !important;
   }
 }
 

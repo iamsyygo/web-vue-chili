@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import { theme } from 'ant-design-vue';
 import type { IAppConfigState } from './type';
+import { c } from 'node_modules/unplugin-vue-router/dist/options-yBvUhD_i.d.mts';
 const { compactAlgorithm, darkAlgorithm, defaultAlgorithm, defaultSeed } = theme;
 
 // const { token } = useToken();
@@ -12,8 +13,20 @@ const token = defaultAlgorithm(defaultSeed);
 // the first argument is a unique id of the store across your application
 export const useAppConfigStore = defineStore('APP_CONFIG', {
   state() {
+    // fix data persistence issue: function serialization problems arise
+    const algorithm = [compactAlgorithm];
+    try {
+      const APP_CONFIG_JSON = localStorage.getItem('APP_CONFIG');
+      const local = APP_CONFIG_JSON ? JSON.parse(APP_CONFIG_JSON) : {};
+
+      if (local.themeScheme === 'dark') {
+        algorithm.push(darkAlgorithm);
+      }
+    } catch (e) {
+      console.error(e, '🍍');
+    }
     return {
-      theme: { algorithm: [compactAlgorithm] },
+      theme: { algorithm },
       themeScheme: 'light',
       layout: {
         sider: {
@@ -34,15 +47,18 @@ export const useAppConfigStore = defineStore('APP_CONFIG', {
       this.themeScheme = scheme;
       if (scheme === 'dark' && Array.isArray(this.theme.algorithm)) {
         this.theme.algorithm.push(darkAlgorithm);
-        return;
       }
-      //   if (scheme === 'light' && Array.isArray(this.theme.algorithm)) {
-      this.theme.algorithm = this.theme.algorithm.filter((a) => a !== darkAlgorithm);
-      //   }
+      if (scheme === 'light' && Array.isArray(this.theme.algorithm)) {
+        // const algorithm = this.theme.algorithm.filter((a) => a !== darkAlgorithm);
+        // Object.assign(this.theme, { algorithm });
+        this.theme.algorithm.pop();
+      }
     },
   },
 
   persist: {
     // CONFIG OPTIONS HERE
+    beforeRestore(context) {},
+    paths: ['themeScheme', 'layout'],
   },
 });

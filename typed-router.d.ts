@@ -22,7 +22,5 @@ declare module 'vue-router/auto-routes' {
     '/keep-alive1/': RouteRecordInfo<'/keep-alive1/', '/keep-alive1', Record<never, never>, Record<never, never>>,
     '/keep-alive2/': RouteRecordInfo<'/keep-alive2/', '/keep-alive2', Record<never, never>, Record<never, never>>,
     '/keep-alive3/': RouteRecordInfo<'/keep-alive3/', '/keep-alive3', Record<never, never>, Record<never, never>>,
-    '/setps/setps': RouteRecordInfo<'/setps/setps', '/setps/setps', Record<never, never>, Record<never, never>>,
-    '/setps/setps/full': RouteRecordInfo<'/setps/setps/full', '/setps/setps/full', Record<never, never>, Record<never, never>>,
   }
 }

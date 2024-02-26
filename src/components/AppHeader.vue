@@ -4,7 +4,7 @@
 
     <a-tooltip title="切换主题">
       <a-switch
-        v-model:checked="checked"
+        :checked="themeScheme"
         checked-children="🌞"
         un-checked-children="🌙"
         checked-value="light"
@@ -16,9 +16,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-const checked = ref<'light' | 'dark'>('light');
-
+defineProps<{
+  themeScheme: string;
+}>();
 defineEmits<{
   change: [any];
 }>();
