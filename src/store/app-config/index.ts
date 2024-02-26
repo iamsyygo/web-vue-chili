@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { theme } from 'ant-design-vue';
 import type { IAppConfigState } from './type';
-const { useToken, compactAlgorithm, darkAlgorithm, defaultAlgorithm, defaultSeed } = theme;
+const { compactAlgorithm, darkAlgorithm, defaultAlgorithm, defaultSeed } = theme;
 
 // const { token } = useToken();
 const token = defaultAlgorithm(defaultSeed);
