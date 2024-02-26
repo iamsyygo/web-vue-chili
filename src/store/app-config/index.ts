@@ -36,9 +36,9 @@ export const useAppConfigStore = defineStore('APP_CONFIG', {
         this.theme.algorithm.push(darkAlgorithm);
         return;
       }
-      if (scheme === 'light' && Array.isArray(this.theme.algorithm)) {
-        this.theme.algorithm = this.theme.algorithm.filter((a) => a !== darkAlgorithm);
-      }
+      //   if (scheme === 'light' && Array.isArray(this.theme.algorithm)) {
+      this.theme.algorithm = this.theme.algorithm.filter((a) => a !== darkAlgorithm);
+      //   }
     },
   },
 });
