@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia';
 import { theme } from 'ant-design-vue';
 import type { IAppConfigState } from './type';
-import { c } from 'node_modules/unplugin-vue-router/dist/options-yBvUhD_i.d.mts';
 const { compactAlgorithm, darkAlgorithm, defaultAlgorithm, defaultSeed } = theme;
 
 // const { token } = useToken();
@@ -12,7 +11,7 @@ const token = defaultAlgorithm(defaultSeed);
 // and `Store` (e.g. `useUserStore`, `useCartStore`, `useProductStore`)
 // the first argument is a unique id of the store across your application
 export const useAppConfigStore = defineStore('APP_CONFIG', {
-  state() {
+  state(): IAppConfigState {
     // fix data persistence issue: function serialization problems arise
     const algorithm = [compactAlgorithm];
     try {
@@ -26,7 +25,12 @@ export const useAppConfigStore = defineStore('APP_CONFIG', {
       console.error(e, '🍍');
     }
     return {
-      theme: { algorithm },
+      theme: {
+        algorithm,
+        components: {
+          Button: {},
+        },
+      },
       themeScheme: 'light',
       layout: {
         sider: {
