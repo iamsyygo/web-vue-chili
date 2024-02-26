@@ -7,6 +7,8 @@
         v-model:checked="checked"
         checked-children="🌞"
         un-checked-children="🌙"
+        checked-value="light"
+        un-checked-value="dark"
         @change="($e) => $emit('change', $e)"
       />
     </a-tooltip>
@@ -15,7 +17,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-const checked = ref<boolean>(true);
+const checked = ref<'light' | 'dark'>('light');
 
 defineEmits<{
   change: [any];
