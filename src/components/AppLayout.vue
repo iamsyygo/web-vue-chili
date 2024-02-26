@@ -18,6 +18,7 @@
         <a-menu
           v-model:active-key="activeKey"
           v-model:selected-keys="selectKeys"
+          mode="inline"
           theme="light"
           :style="{ backgroundColor: token.colorBgContainer }"
           @select="onSelectMenu"
