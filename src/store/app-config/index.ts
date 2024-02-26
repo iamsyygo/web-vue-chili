@@ -1,8 +1,10 @@
 import { defineStore } from 'pinia';
 import { theme } from 'ant-design-vue';
 import type { IAppConfigState } from './type';
-const { useToken, compactAlgorithm, darkAlgorithm } = theme;
-const { token } = useToken();
+const { useToken, compactAlgorithm, darkAlgorithm, defaultAlgorithm, defaultSeed } = theme;
+
+// const { token } = useToken();
+const token = defaultAlgorithm(defaultSeed);
 
 // You can name the return value of `defineStore()` anything you want,
 // but it's best to use the name of the store and surround it with `use`
@@ -17,7 +19,7 @@ export const useAppConfigStore = defineStore('APP_CONFIG', {
         sider: {
           width: 200,
           collapsedWidth: 60,
-          backgroundColor: token.value.colorBgContainer,
+          backgroundColor: token.colorBgContainer,
         },
         header: {
           height: 50,
