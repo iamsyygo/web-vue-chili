@@ -41,4 +41,8 @@ export const useAppConfigStore = defineStore('APP_CONFIG', {
       //   }
     },
   },
+
+  persist: {
+    // CONFIG OPTIONS HERE
+  },
 });
