@@ -105,6 +105,7 @@ $-tab-radius: 8px;
   :deep(.ant-tabs-tab-remove) {
     width: 16px;
     height: 16px;
+    border-radius: 50%;
     line-height: 16px;
     text-align: center;
     color: v-bind('token.colorText');
