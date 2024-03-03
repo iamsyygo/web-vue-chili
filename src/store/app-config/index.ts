@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import { theme } from 'ant-design-vue';
 import type { IAppConfigState } from './type';
+import { getAuthorization } from '@/utils';
 const { compactAlgorithm, darkAlgorithm, defaultAlgorithm, defaultSeed } = theme;
 
 // const { token } = useToken();
@@ -43,6 +44,7 @@ export const useAppConfigStore = defineStore('APP_CONFIG', {
           backgroundColor: '#CADFFB',
         },
       },
+      authorization: getAuthorization() as IAppConfigState['authorization'],
     };
   },
 
@@ -58,11 +60,19 @@ export const useAppConfigStore = defineStore('APP_CONFIG', {
         this.theme.algorithm.pop();
       }
     },
+    setAuthorization(authorization: IAppConfigState['authorization']) {
+      this.authorization = authorization;
+    },
+    clearAuthorization() {
+      localStorage.removeItem('ACCESS_TOKEN');
+      localStorage.removeItem('REFRESH_TOKEN');
+      this.authorization = null;
+    },
   },
 
   persist: {
     // CONFIG OPTIONS HERE
     beforeRestore(context) {},
-    paths: ['themeScheme', 'layout'],
+    paths: ['themeScheme', 'layout', 'authorization'],
   },
 });

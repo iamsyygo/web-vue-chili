@@ -20,4 +20,9 @@ export interface IAppConfigState {
   theme: ThemeConfig;
   themeScheme: 'light' | 'dark';
   layout: Layout;
+  authorization: {
+    accessToken: string;
+    refreshToken: string;
+    user: Record<string, any>;
+  } | null;
 }

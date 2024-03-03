@@ -38,9 +38,11 @@
   </a-form>
 </template>
 <script lang="ts" setup>
-import { onSignInGitHub } from '@/api/github-sign.api';
-import { onMounted } from 'vue';
-import { reactive } from 'vue';
+import { onAnthGitHubUser } from '@/api/github-sign.api';
+import { onMounted, reactive } from 'vue';
+import { Spin } from 'ant-design-vue';
+import { inject } from 'vue';
+import { GLOBAL_SYMBOL_BY_INJECT } from '@/utils/global.symbol';
 
 interface FormState {
   username: string;
@@ -75,10 +77,16 @@ const handleSignInGitHub = () => {
 };
 
 const route = useRoute();
-onMounted(() => {
+
+// 🥰 optimization: 将抽取为 hook
+const Spin = inject(GLOBAL_SYMBOL_BY_INJECT.SPINNING);
+onMounted(async () => {
   // 🐞 fix: 从浏览器URL跳转时(非编程方式，github 回调)带有 query 参数被重新定向(?xxx=0消失)
   if (route.query.code) {
     router.push(route.fullPath);
+    Spin?.updateSpin();
+    const data = await onAnthGitHubUser(route.query.code as string).finally(Spin?.updateSpin);
+    console.log(data, '🔥');
   }
 });
 

@@ -1,10 +1,10 @@
 export type IAxiosResponseResult<T> = {
-  code: number
-  data: T
-  message: string
-  success: boolean
-  timestamp: number
-}
+  code: number;
+  bizdata: T;
+  message: string;
+  success: boolean;
+  timestamp: number;
+};
 
 export enum ERequestErrorStatusCode {
   '请求失败' = 400,

@@ -19,9 +19,11 @@ declare module 'vue-router/auto-routes' {
    */
   export interface RouteNamedMap {
     '/[...404]': RouteRecordInfo<'/[...404]', '/:404(.*)', { 404: ParamValue<true> }, { 404: ParamValue<false> }>,
-    '/github-sign/': RouteRecordInfo<'/github-sign/', '/github-sign', Record<never, never>, Record<never, never>>,
-    '/keep-alive1/': RouteRecordInfo<'/keep-alive1/', '/keep-alive1', Record<never, never>, Record<never, never>>,
-    '/keep-alive2/': RouteRecordInfo<'/keep-alive2/', '/keep-alive2', Record<never, never>, Record<never, never>>,
-    '/keep-alive3/': RouteRecordInfo<'/keep-alive3/', '/keep-alive3', Record<never, never>, Record<never, never>>,
+    '/login/': RouteRecordInfo<'/login/', '/login', Record<never, never>, Record<never, never>>,
+    '/main': RouteRecordInfo<'/main', '/main', Record<never, never>, Record<never, never>>,
+    '/main/github-sign/': RouteRecordInfo<'/main/github-sign/', '/main/github-sign', Record<never, never>, Record<never, never>>,
+    '/main/keep-alive1/': RouteRecordInfo<'/main/keep-alive1/', '/main/keep-alive1', Record<never, never>, Record<never, never>>,
+    '/main/keep-alive2/': RouteRecordInfo<'/main/keep-alive2/', '/main/keep-alive2', Record<never, never>, Record<never, never>>,
+    '/main/keep-alive3/': RouteRecordInfo<'/main/keep-alive3/', '/main/keep-alive3', Record<never, never>, Record<never, never>>,
   }
 }

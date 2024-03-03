@@ -8,8 +8,10 @@ import type {
 import axios from 'axios';
 import { ERequestErrorStatusCode, IAxiosResponseResult } from './type.d';
 
+const isDev = import.meta.env.DEV;
+
 const instance: AxiosInstance = axios.create({
-  baseURL: '',
+  baseURL: isDev ? '' : 'https://web-nest-goggles.vercel.app',
   timeout: 10000,
   headers: { 'Content-Type': 'application/json' },
 });
@@ -33,8 +35,8 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (response: AxiosResponse) => {
     // what to do with the response data
-    const { data } = response.data as IAxiosResponseResult<any>;
-    return data;
+    const { bizdata } = response.data as IAxiosResponseResult<any>;
+    return bizdata;
   },
   (error: AxiosError) => {
     // what to do with response errors

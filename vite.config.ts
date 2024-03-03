@@ -19,11 +19,11 @@ export default defineConfig({
   // 插入cdn
   plugins: [
     VueRouter({
-      routesFolder: 'src/views',
+      routesFolder: ['src/views'],
       // Exclude directories prefixed with “_”
       exclude: ['src/views/**/_*[\\w-]*', 'src/views/**/src'],
-      extensions: ['.vue'],
-      importMode: 'async',
+      // extensions: ['.vue'],
+      // importMode: 'async',
     }),
     Unocss(),
     Vue(),

@@ -1,5 +1,12 @@
 import axios from '@/utils/http';
 
-export const onSignInGitHub = (redirect_uri: string) => {
-  return axios.get(`/api/user/sign-in/github?redirect_uri=${redirect_uri}`);
+export const onAnthGitHubUser = (code: string) => {
+  return axios.post<
+    any,
+    {
+      user: Record<string, any>;
+      access_token: string;
+      refresh_token: string;
+    }
+  >('/api/user/github-auth', { code });
 };
