@@ -40,7 +40,6 @@
 <script lang="ts" setup>
 import { onAnthGitHubUser } from '@/api/github-sign.api';
 import { onMounted, reactive } from 'vue';
-import { Spin } from 'ant-design-vue';
 import { inject } from 'vue';
 import { GLOBAL_SYMBOL_BY_INJECT } from '@/utils/global.symbol';
 

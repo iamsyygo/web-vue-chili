@@ -60,7 +60,6 @@ import { onSendEmailCodeApi, onLoginApi } from '@/api/login.api';
 import { onAnthGitHubUser } from '@/api/github-sign.api';
 import { useAppConfigStore } from '@/store/app-config';
 import { useRouter, useRoute } from 'vue-router';
-import { Spin } from 'ant-design-vue';
 import { inject } from 'vue';
 import { GLOBAL_SYMBOL_BY_INJECT } from '@/utils/global.symbol';
 
@@ -106,7 +105,7 @@ const handleEmailCode = async () => {
 
 const sign = ref(false);
 const appConfigStore = useAppConfigStore();
-const setUser = (data) => {
+const setUser = (data: any) => {
   appConfigStore.setAuthorization({
     accessToken: data.access_token,
     refreshToken: data.refresh_token,
@@ -120,11 +119,7 @@ const handleSign = async () => {
     return;
   }
   sign.value = true;
-  const data: {
-    access_token: string;
-    refresh_token: string;
-    user: User;
-  } = await onLoginApi({
+  const data: any = await onLoginApi({
     email: formModel.value.email,
     password: formModel.value.password,
     code: formModel.value.code,
