@@ -32,9 +32,16 @@
         <slot name="header"> </slot>
       </a-layout-header>
 
-      <a-layout-content>
-        <layout-tab v-model="records" @change="setRoute" />
-        <div style="margin: 10px; position: relative">
+      <a-layout-content style="display: flex; flex-direction: column">
+        <layout-tab
+          v-model="records"
+          @change="setRoute"
+          :style="{
+            boxShadow: isShadow ? '0 2px 6px rgba(0, 0, 0, 0.15)' : 'none',
+            transition: 'box-shadow 0.3s',
+          }"
+        />
+        <div class="app-content-wrapper" ref="contentWrapRef">
           <slot>
             <router-view
               v-slot="{ Component, route }"
@@ -77,6 +84,8 @@ import AppSiderMenuItem from '@/components/AppSiderMenuItem.vue';
 import { SelectInfo } from 'ant-design-vue/es/menu/src/interface';
 import { AppMenuItemMeta, LayoutType } from '@/components/layout';
 import { theme } from 'ant-design-vue';
+import { onMounted } from 'vue';
+import { debounce } from 'lodash-es';
 const { useToken } = theme;
 const { token } = useToken();
 
@@ -126,6 +135,25 @@ const transProps: TransitionProps = {
   appear: true,
   mode: 'out-in',
 };
+
+const contentWrapRef = ref<HTMLElement | null>(null);
+const isShadow = ref<boolean>(false);
+onMounted(() => {
+  if (contentWrapRef.value) {
+    // 判断里面内容是否在滚动
+    contentWrapRef.value.addEventListener('scroll', contentRefScroll);
+  }
+});
+
+const contentRefScroll = debounce((evt: Event) => {
+  const target = evt.target as HTMLElement;
+  const { scrollTop, clientHeight } = target;
+  if (scrollTop + clientHeight > clientHeight) {
+    isShadow.value = true;
+  } else {
+    isShadow.value = false;
+  }
+}, 200);
 </script>
 <style scoped lang="scss">
 $-app-layout-sider-width: calc(v-bind('layout.sider.width') * 1px);
@@ -170,6 +198,13 @@ $-app-layout-header-height: calc(v-bind('layout.header.height') * 1px);
 }
 .app-top-page-leave-active {
   animation: zoomOut 0.3s;
+}
+
+.app-content-wrapper {
+  padding: 10px 0 0 10px;
+  position: relative;
+  flex: 1;
+  overflow: auto;
 }
 
 // fix 2 router-view position not overlap displaced unfriendly experience.

@@ -1,5 +1,3 @@
-<!-- Catch all / 404 Not found route -->
-
 <template>
   <div class="flex justify-center items-center w-full">
     <symbol-icon
@@ -12,6 +10,7 @@
 
 <script setup lang="ts">
 import { theme } from 'ant-design-vue';
+
 const { useToken } = theme;
 const { token } = useToken();
 </script>

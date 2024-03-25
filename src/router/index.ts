@@ -18,10 +18,10 @@ router.beforeEach((to, from, next) => {
   // the router is installed and pinia will be installed too
   const { authorization, clearAuthorization } = useAppConfigStore();
 
-  if (!authorization?.accessToken && to.path !== '/login') {
-    clearAuthorization();
-    next({ path: '/login' });
-  }
+  // if (!authorization?.accessToken && to.path !== '/login') {
+  //   clearAuthorization();
+  //   next({ path: '/login' });
+  // }
 
   console.log(authorization, '🔑');
   next();

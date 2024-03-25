@@ -1,18 +1,16 @@
 <script setup lang="ts">
+import { theme as extTheme } from 'ant-design-vue';
+import { computed, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+
 import AppHeader from '@/components/AppHeader.vue';
 import AppLayout from '@/components/AppLayout.vue';
 import { AppMenuItemMeta } from '@/components/layout';
 import { useAppConfigStore } from '@/store/app-config';
-import { theme as extTheme } from 'ant-design-vue';
-import { ref } from 'vue';
-import { computed, onMounted } from 'vue';
-import { useRouter } from 'vue-router';
-import Loading from '@/components/Loading.vue';
-import { GLOBAL_SYMBOL_BY_INJECT } from '@/utils/global.symbol';
 
+const router = useRouter();
 const { useToken } = extTheme;
 const { token } = useToken();
-const router = useRouter();
 const appconfig = useAppConfigStore();
 
 onMounted(() => {

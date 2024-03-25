@@ -6,51 +6,65 @@ import type {
   InternalAxiosRequestConfig as AxiosRequestConfig,
 } from 'axios';
 import axios from 'axios';
-import { ERequestErrorStatusCode, IAxiosResponseResult } from './type.d';
+import { ERequestErrorStatusCode, AxiosResponseResult } from './type.d';
 
 const isDev = import.meta.env.DEV;
 
-const instance: AxiosInstance = axios.create({
-  baseURL: isDev ? '' : 'https://web-nest-goggles.vercel.app',
+const ApiClient: AxiosInstance = axios.create({
+  baseURL: '',
   timeout: 10000,
-  headers: { 'Content-Type': 'application/json' },
 });
 
 // request interceptor
-instance.interceptors.request.use(
+ApiClient.interceptors.request.use(
   (config: AxiosRequestConfig) => {
-    // what to do before the request is sent
-    Object.assign(config.headers, {
-      Authorization: localStorage.getItem('Authorization'),
-    });
+    const Authorization = localStorage.getItem('Authorization');
+    Object.assign(config.headers, { Authorization });
     return config;
   },
   (error: any) => {
-    // what to do about request errors
     return Promise.reject(error);
   }
 );
 
+interface PendingTask {
+  config: AxiosRequestConfig;
+  resolve: Function;
+}
+const queue: PendingTask[] = [];
+let valve = false;
+
 // response interceptor
-instance.interceptors.response.use(
-  (response: AxiosResponse) => {
-    // what to do with the response data
-    const { bizdata } = response.data as IAxiosResponseResult<any>;
-    return bizdata;
-  },
-  (error: AxiosError) => {
-    // what to do with response errors
-    const { response } = error;
+ApiClient.interceptors.response.use(
+  (response: AxiosResponse) => response.data,
+  async (error: AxiosError) => {
+    const { response, config } = error;
     const { status } = response || {};
+
+    if (valve) {
+      return new Promise((resolve) => {
+        // 让失败需要重试的请求等待 resolve
+        queue.push({ config: config!, resolve });
+      });
+    }
+
+    if (status === 401 && config?.url !== '/auth/refreshToken') {
+      valve = true;
+      const res = await refreshToken();
+      valve = false;
+
+      // 重新认证回来后，继续执行队列中的请求
+      // 重新认证回来后，缓存密钥
+      ApiClient(config);
+      queue.forEach((task) => {
+        task.resolve(ApiClient(task.config));
+      });
+    }
     const msg = ERequestErrorStatusCode[status || 400];
     antMessage.error(msg);
-
-    if (status === 401) {
-      localStorage.clear();
-    }
 
     return Promise.reject(error.response?.data);
   }
 );
 
-export default instance;
+export default ApiClient;

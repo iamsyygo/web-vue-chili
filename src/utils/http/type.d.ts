@@ -1,4 +1,4 @@
-export type IAxiosResponseResult<T> = {
+export type AxiosResponseResult<T> = {
   code: number;
   bizdata: T;
   message: string;

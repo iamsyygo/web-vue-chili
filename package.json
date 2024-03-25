@@ -24,9 +24,9 @@
   },
   "devDependencies": {
     "@types/node": "^20.11.19",
-    "@vitejs/plugin-vue": "^5.0.3",
+    "@vitejs/plugin-vue": "^5.0.4",
     "sass": "^1.71.0",
-    "typescript": "^5.2.2",
+    "typescript": "^5.4.2",
     "unocss": "^0.58.5",
     "unplugin-auto-import": "^0.17.5",
     "unplugin-vue-components": "^0.26.0",
@@ -34,6 +34,6 @@
     "vite": "^5.1.4",
     "vite-plugin-cdn-import": "^0.3.5",
     "vite-plugin-inspect": "^0.8.3",
-    "vue-tsc": "^1.8.27"
+    "vue-tsc": "^2.0.7"
   }
 }
