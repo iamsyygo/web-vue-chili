@@ -32,6 +32,12 @@ dependencies:
   vue:
     specifier: ^3.4.20
     version: 3.4.20(typescript@5.3.3)
+  vue-color-kit:
+    specifier: ^1.0.6
+    version: 1.0.6(vue@3.4.20)
+  vue-pick-colors:
+    specifier: ^1.6.3
+    version: 1.6.3(@popperjs/core@2.11.8)(vue@3.4.20)
   vue-router:
     specifier: '4'
     version: 4.3.0(vue@3.4.20)
@@ -722,6 +728,10 @@ packages:
   /@polka/url@1.0.0-next.24:
     resolution: {integrity: sha512-2LuNTFBIO0m7kKIQvvPHN6UE63VjpmL9rnEEaOOaiSPbZK+zUOYIzBAWcED+3XYzhYsd/0mD57VdxAEqqV52CQ==}
     dev: true
+
+  /@popperjs/core@2.11.8:
+    resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
+    dev: false
 
   /@rollup/pluginutils@4.2.1:
     resolution: {integrity: sha512-iKnFXr7NkdZAIHiIWE+BX5ULi/ucVFYWD6TbAV+rZctiRTY2PL6tsIKhoIOaoskiWAkgu+VsbXgUVDNLHf+InQ==}
@@ -2585,6 +2595,14 @@ packages:
       fsevents: 2.3.3
     dev: true
 
+  /vue-color-kit@1.0.6(vue@3.4.20):
+    resolution: {integrity: sha512-56oSUp8hGIZ3E4ayZLqTDAb2C7VzaWAC1EVUsZEvPCD2wiiiFd2L2BiEGN1ingfz538sYWKNXxMZQGslqbMiBg==}
+    peerDependencies:
+      vue: ^3.0.5
+    dependencies:
+      vue: 3.4.20(typescript@5.3.3)
+    dev: false
+
   /vue-demi@0.14.7(vue@3.4.20):
     resolution: {integrity: sha512-EOG8KXDQNwkJILkx/gPcoL/7vH+hORoBaKgGe+6W7VFMvCYJfmF2dGbvgDroVnI8LU7/kTu8mbjRZGBU1z9NTA==}
     engines: {node: '>=12'}
@@ -2598,6 +2616,16 @@ packages:
         optional: true
     dependencies:
       vue: 3.4.20(typescript@5.3.3)
+
+  /vue-pick-colors@1.6.3(@popperjs/core@2.11.8)(vue@3.4.20):
+    resolution: {integrity: sha512-heSY2QofdPYA9RlsbEGbByG1VS7X4Ah2kzUITNHQk0aiNI8zDbXl8nUEXQhDUPNQ0Na13VcfDXhmfMvYEGJv9A==}
+    peerDependencies:
+      '@popperjs/core': ^2.11.2
+      vue: ^3.2.26
+    dependencies:
+      '@popperjs/core': 2.11.8
+      vue: 3.4.20(typescript@5.3.3)
+    dev: false
 
   /vue-router@4.3.0(vue@3.4.20):
     resolution: {integrity: sha512-dqUcs8tUeG+ssgWhcPbjHvazML16Oga5w34uCUmsk7i0BcnskoLGwjpa15fqMr2Fa5JgVBrdL2MEgqz6XZ/6IQ==}
