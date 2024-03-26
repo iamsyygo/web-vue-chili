@@ -4,8 +4,10 @@
   </svg>
 </template>
 <script setup lang="ts">
+import { AppSymbolIcons } from '@/types/symbol-icons-remote';
+
 defineProps<{
-  icon?: string;
+  icon?: AppSymbolIcons | string;
   size?: string | number;
   color?: string;
 }>();

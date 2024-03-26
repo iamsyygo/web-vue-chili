@@ -83,6 +83,7 @@ $-tab-radius: 8px;
 .app-tabs-wrapper {
   padding-top: 3px;
   background-color: v-bind('token.colorBgElevated');
+  // box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
 }
 .app-tabs--nav {
   user-select: none;
@@ -105,6 +106,7 @@ $-tab-radius: 8px;
   :deep(.ant-tabs-tab-remove) {
     width: 16px;
     height: 16px;
+    border-radius: 50%;
     line-height: 16px;
     text-align: center;
     color: v-bind('token.colorText');
@@ -158,7 +160,6 @@ $-tab-radius: 8px;
 }
 
 .app-tabs--nav :deep(.ant-tabs-tab-active) {
-  font-weight: 700;
   border-radius: $-tab-radius !important;
   border-bottom-left-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
