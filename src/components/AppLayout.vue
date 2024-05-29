@@ -86,6 +86,7 @@ import { AppMenuItemMeta, LayoutType } from '@/components/layout';
 import { theme } from 'ant-design-vue';
 import { onMounted } from 'vue';
 import { debounce } from 'lodash-es';
+import { onBeforeUnmount } from 'vue';
 const { useToken } = theme;
 const { token } = useToken();
 
@@ -153,7 +154,12 @@ const contentRefScroll = debounce((evt: Event) => {
   } else {
     isShadow.value = false;
   }
-}, 200);
+}, 100);
+onBeforeUnmount(() => {
+  if (contentWrapRef.value) {
+    contentWrapRef.value.removeEventListener('scroll', contentRefScroll);
+  }
+});
 </script>
 <style scoped lang="scss">
 $-app-layout-sider-width: calc(v-bind('layout.sider.width') * 1px);
@@ -175,7 +181,7 @@ $-app-layout-header-height: calc(v-bind('layout.header.height') * 1px);
     font-size: 12px;
     padding: 3px;
     color: v-bind('token.colorText');
-    background-color: v-bind('token.colorBorderSecondary');
+    background-color: v-bind('token.colorBgContainer');
     border-radius: 50%;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   }
@@ -201,7 +207,6 @@ $-app-layout-header-height: calc(v-bind('layout.header.height') * 1px);
 }
 
 .app-content-wrapper {
-  padding: 10px 0 0 10px;
   position: relative;
   flex: 1;
   overflow: auto;

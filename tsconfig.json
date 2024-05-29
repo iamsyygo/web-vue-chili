@@ -14,7 +14,7 @@
     "noEmit": true,
     "jsx": "preserve",
 
-    "types": ["unplugin-vue-router/client"],
+    "types": ["unplugin-vue-router", "@types/lodash-es"],
 
     /* Linting */
     "strict": true,

@@ -9,15 +9,19 @@ const iconPath = join(__dirname, 'iconfont.js');
 const remoteIconPath = 'https://at.alicdn.com/t/c/font_4478885_cab4lylxzs8.js';
 
 function handler(iconfont = '', iconPath, typePath, fill) {
-  // replace the fill inside.
-  const fillAttributeRegex = /fill="[^"]+"/g;
-  const newIconfont = iconfont.replace(
-    fillAttributeRegex,
-    'class="app-symbol-primary" fill-rule="evenodd" clip-rule="evenodd"'
-  );
+  let iife = '';
+  let newIconfont = iconfont;
+  if (fill) {
+    // replace the fill inside.
+    const fillAttributeRegex = /fill="[^"]+"/g;
+    newIconfont = iconfont.replace(
+      fillAttributeRegex,
+      'class="app-symbol-primary" fill-rule="evenodd" clip-rule="evenodd"'
+    );
+    iife = `(function() { const style = document.createElement('style'); style.innerHTML = '.app-symbol-primary { fill: ${fill}; }'; document.head.appendChild(style); })();`;
+  }
 
   // add iife to the iconfont.js, add class style
-  const iife = `(function() { const style = document.createElement('style'); style.innerHTML = '.app-symbol-primary { fill: ${fill}; }'; document.head.appendChild(style); })();`;
 
   iconPath ??= join(__dirname, 'iconfont.js');
 
@@ -45,7 +49,7 @@ function handler(iconfont = '', iconPath, typePath, fill) {
 }
 
 function go(path = '', option = {}) {
-  const { iconPath, typePath, fill = '#A8C7FA' } = option;
+  const { iconPath, typePath, fill } = option;
   if (path.includes('//at.alicdn.com')) {
     path = path.startsWith('http') ? path : 'https:' + path;
     // replace the remote icon path to local icon path
@@ -70,5 +74,9 @@ function go(path = '', option = {}) {
 go(remoteIconPath, {
   iconPath: join(__dirname, '../public/iconfont-remote.js'),
   typePath: join(__dirname, '../src/types/symbol-icons-remote.d.ts'),
-  fill: '#A8C7FA',
+  fill: 'var(--app-symbol-primary)',
+});
+go('//at.alicdn.com/t/c/font_4478414_viaz8c7i4re.js', {
+  iconPath: join(__dirname, '../public/iconfont-main.js'),
+  typePath: join(__dirname, '../src/types/symbol-icons-main.d.ts'),
 });

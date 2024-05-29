@@ -74,16 +74,15 @@ $-tab-radius: 8px;
   }
 }
 
-@mixin display-before($v: none) {
+@mixin display-before($v: 0) {
   &::before {
-    display: $v;
+    opacity: $v;
   }
 }
 
 .app-tabs-wrapper {
   padding-top: 3px;
   background-color: v-bind('token.colorBgElevated');
-  // box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
 }
 .app-tabs--nav {
   user-select: none;
@@ -137,6 +136,7 @@ $-tab-radius: 8px;
     height: 60%;
     transform: translate(1.5px, 50%);
     background-color: #ccc;
+    transition: opacity 0.8s;
   }
 
   &:hover {
@@ -146,14 +146,14 @@ $-tab-radius: 8px;
     background-color: v-bind('token.colorFill');
 
     @include remove-show(1);
-    @include display-before;
+    @include display-before(0);
   }
 
   // 下一个兄弟元素是 .ant-tabs-tab:hover 时
   // 下一个兄弟元素是 .ant-tabs-tab-active 时
   &:has(+ .ant-tabs-tab:hover),
   &:has(+ .ant-tabs-tab-active) {
-    @include display-before;
+    @include display-before(0);
   }
 
   @include remove-show(0);
@@ -171,7 +171,7 @@ $-tab-radius: 8px;
     background-color: $-tab-active-bg;
   }
 
-  @include display-before;
+  @include display-before(0);
   @include remove-show(1);
 }
 

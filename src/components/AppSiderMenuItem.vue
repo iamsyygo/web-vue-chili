@@ -4,13 +4,14 @@
     v-if="!menu.children"
     :icon="menu.icon || 'ninsuofangwendeyemianbucunzai-quanju'"
     :title="menu.title || menu.path"
+    class="app-sider-menu-item"
   >
     <a-icon>
       <template #component>
         <symbol-icon :icon="menu.icon" style="margin-right: 6px"></symbol-icon>
       </template>
     </a-icon>
-    <span>{{ menu.title || menu.path }}</span>
+    <span class="app-sider-menu-item--title">{{ menu.title || menu.path }}</span>
     <a-badge status="processing" style="float: right" v-if="$route.path === menu.path" />
   </a-menu-item>
   <a-sub-menu :key="menu.path" v-if="menu.children">
@@ -21,7 +22,7 @@
             <symbol-icon :icon="menu.icon" style="margin-right: 6px"></symbol-icon>
           </template>
         </a-icon>
-        <span>{{ menu.title }}</span>
+        <span class="app-sider-menu-item--title">{{ menu.title }}</span>
       </span>
     </template>
     <app-sider-menu-item v-for="item in menu.children" :key="item.path" :menu="item" />
@@ -38,4 +39,16 @@ defineProps<{
 }>();
 </script>
 
-<style scoped></style>
+<style>
+.app-sider-menu-item .ant-menu-title-content {
+  display: flex;
+  align-items: center;
+}
+
+.app-sider-menu-item--title {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+</style>

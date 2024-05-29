@@ -22,10 +22,15 @@ declare module 'vue-router/auto-routes' {
     '/login/': RouteRecordInfo<'/login/', '/login', Record<never, never>, Record<never, never>>,
     '/main': RouteRecordInfo<'/main', '/main', Record<never, never>, Record<never, never>>,
     '/main/app-icon/': RouteRecordInfo<'/main/app-icon/', '/main/app-icon', Record<never, never>, Record<never, never>>,
+    '/main/app-icon(requestAnimationFrame)/': RouteRecordInfo<'/main/app-icon(requestAnimationFrame)/', '/main/app-icon(requestAnimationFrame)', Record<never, never>, Record<never, never>>,
     '/main/github-sign/': RouteRecordInfo<'/main/github-sign/', '/main/github-sign', Record<never, never>, Record<never, never>>,
-    '/main/keep-alive1/': RouteRecordInfo<'/main/keep-alive1/', '/main/keep-alive1', Record<never, never>, Record<never, never>>,
-    '/main/keep-alive2/': RouteRecordInfo<'/main/keep-alive2/', '/main/keep-alive2', Record<never, never>, Record<never, never>>,
-    '/main/keep-alive3/': RouteRecordInfo<'/main/keep-alive3/', '/main/keep-alive3', Record<never, never>, Record<never, never>>,
+    '/main/horizontal-waterfall/': RouteRecordInfo<'/main/horizontal-waterfall/', '/main/horizontal-waterfall', Record<never, never>, Record<never, never>>,
+    '/main/intersection-observer/': RouteRecordInfo<'/main/intersection-observer/', '/main/intersection-observer', Record<never, never>, Record<never, never>>,
+    '/main/loading/': RouteRecordInfo<'/main/loading/', '/main/loading', Record<never, never>, Record<never, never>>,
     '/main/luminescence/': RouteRecordInfo<'/main/luminescence/', '/main/luminescence', Record<never, never>, Record<never, never>>,
+    '/main/mind/': RouteRecordInfo<'/main/mind/', '/main/mind', Record<never, never>, Record<never, never>>,
+    '/main/mind/vue-shape/dropdown': RouteRecordInfo<'/main/mind/vue-shape/dropdown', '/main/mind/vue-shape/dropdown', Record<never, never>, Record<never, never>>,
+    '/main/rsa/': RouteRecordInfo<'/main/rsa/', '/main/rsa', Record<never, never>, Record<never, never>>,
+    '/main/test/': RouteRecordInfo<'/main/test/', '/main/test', Record<never, never>, Record<never, never>>,
   }
 }

@@ -1,73 +1,69 @@
 <template>
-  <div>
-    <h1>发光效果</h1>
-
-    <div class="flex w-100% flex-wrap justify-around mt-20px luminescence-wrapper">
-      <div class="luminescence" @mousemove="onmousemove">
-        <div>
-          <h2>Beautiful Graphics</h2>
-          <h3>With 10+ Tools.</h3>
-          <h4>Instantly & Effortless!</h4>
-          <p>
-            Create unique graphics for social media posts, landing pages and branding in a few
-            clicks. Then export them as images, or even code (SVG & CSS).
-          </p>
-        </div>
+  <div class="flex w-100% h-full flex-wrap justify-around luminescence-wrapper">
+    <div class="luminescence" @mousemove="onmousemove">
+      <div>
+        <h1>Taiwan</h1>
+        <h2>Nancy Fleming</h2>
+        <h3>http://sugi.tk/rugInstantly & Effortless!</h3>
+        <p>
+          black quite care danger needed canal floor reason teeth luck jack morning mill driven
+          airplane column onto swim form light written cabin hour lie
+        </p>
       </div>
-      <div class="luminescence" @mousemove="onmousemove">
-        <div>
-          <h2>Beautiful Graphics</h2>
-          <h3>With 10+ Tools.</h3>
-          <h4>Instantly & Effortless!</h4>
-          <p>
-            Create unique graphics for social media posts, landing pages and branding in a few
-            clicks. Then export them as images, or even code (SVG & CSS).
-          </p>
-        </div>
+    </div>
+    <div class="luminescence" @mousemove="onmousemove">
+      <div>
+        <h1>Côte d'Ivoire</h1>
+        <h2>Ronnie Lucas</h2>
+        <h3>http://li.ga/nojverafInstantly & Effortless!</h3>
+        <p>
+          rate greatly missing row indicate themselves word neck fox brush aid bite drove melted
+          common health soil children plan friend average farmer copy darkness
+        </p>
       </div>
-      <div class="luminescence" @mousemove="onmousemove">
-        <div>
-          <h2>Beautiful Graphics</h2>
-          <h3>With 10+ Tools.</h3>
-          <h4>Instantly & Effortless!</h4>
-          <p>
-            Create unique graphics for social media posts, landing pages and branding in a few
-            clicks. Then export them as images, or even code (SVG & CSS).
-          </p>
-        </div>
+    </div>
+    <div class="luminescence" @mousemove="onmousemove">
+      <div>
+        <h1>Oman</h1>
+        <h2>Victor Bryant</h2>
+        <h3>http://to.gn/vabnitfupInstantly & Effortless!</h3>
+        <p>
+          every trace safe nails pain nearby upon unusual which minute dot butter ship third
+          straight men victory dirty tropical work seed suppose coal outer
+        </p>
       </div>
-      <div class="luminescence" @mousemove="onmousemove">
-        <div>
-          <h2>Beautiful Graphics</h2>
-          <h3>With 10+ Tools.</h3>
-          <h4>Instantly & Effortless!</h4>
-          <p>
-            Create unique graphics for social media posts, landing pages and branding in a few
-            clicks. Then export them as images, or even code (SVG & CSS).
-          </p>
-        </div>
+    </div>
+    <div class="luminescence" @mousemove="onmousemove">
+      <div>
+        <h1>Russia</h1>
+        <h2>Ola Hansen</h2>
+        <h3>http://celriuf.wf/itvafInstantly & Effortless!</h3>
+        <p>
+          taken task are blanket improve girl milk underline firm once war gave brown stove chamber
+          welcome principle must plane lot column figure year tonight
+        </p>
       </div>
-      <div class="luminescence" @mousemove="onmousemove">
-        <div>
-          <h2>Beautiful Graphics</h2>
-          <h3>With 10+ Tools.</h3>
-          <h4>Instantly & Effortless!</h4>
-          <p>
-            Create unique graphics for social media posts, landing pages and branding in a few
-            clicks. Then export them as images, or even code (SVG & CSS).
-          </p>
-        </div>
+    </div>
+    <div class="luminescence" @mousemove="onmousemove">
+      <div>
+        <h1>Bosnia & Herzegovina</h1>
+        <h2>Tom Mason</h2>
+        <h3>http://zicvojsiz.za/sojInstantly & Effortless!</h3>
+        <p>
+          living news crack knowledge twenty secret whole rhyme date complete learn only handsome
+          pressure education twice observe roll poor silk tiny wool signal upon
+        </p>
       </div>
-      <div class="luminescence" @mousemove="onmousemove">
-        <div>
-          <h2>Beautiful Graphics</h2>
-          <h3>With 10+ Tools.</h3>
-          <h4>Instantly & Effortless!</h4>
-          <p>
-            Create unique graphics for social media posts, landing pages and branding in a few
-            clicks. Then export them as images, or even code (SVG & CSS).
-          </p>
-        </div>
+    </div>
+    <div class="luminescence" @mousemove="onmousemove">
+      <div>
+        <h1>Gabon</h1>
+        <h2>Nina Weber</h2>
+        <h3>http://cocagopa.pf/vobvijInstantly & Effortless!</h3>
+        <p>
+          beginning chair pull include know letter acres see machinery type stronger function seen
+          occur refused spell duty cage between underline bee share rest influence
+        </p>
       </div>
     </div>
   </div>
@@ -130,7 +126,6 @@ const onmousemove = (e: MouseEvent) => {
 }
 
 .luminescence:hover {
-  transform: rotateX(calc(v-bind(rx) * 15deg)) rotateY(calc(v-bind(ry) * 15deg));
   z-index: 2;
 }
 

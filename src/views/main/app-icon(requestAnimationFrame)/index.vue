@@ -21,7 +21,7 @@ import { ref } from 'vue';
 
 definePage({
   meta: {
-    title: '图标预览',
+    title: '图标预览（requestAnimationFrame 版）',
     icon: 'box',
     keepAlive: false,
   },
@@ -717,18 +717,33 @@ function shuffleArray(array: string[]) {
 }
 
 icons = shuffleArray(icons);
-
+const copyicons = Array.from({ length: 10 })
+  .map(() => icons)
+  .flat();
 const finalicons = ref<string[]>([]);
 
-let count = 0;
-let timer = setInterval(() => {
-  if (count >= icons.length) {
-    clearInterval(timer);
-    return;
-  }
-  finalicons.value.push(...icons.slice(count, count + 1));
-  count += 1;
-}, 20);
+const sliceRender = (params: string[], cb) => {
+  let i = 0;
+
+  const render = () => {
+    return new Promise((resolve) => {
+      window.requestAnimationFrame(() => {
+        cb(params[i++]);
+        if (i < params.length) {
+          resolve(render());
+        }
+      });
+    });
+  };
+
+  render();
+};
+
+sliceRender(copyicons, (res) => {
+  finalicons.value.push(res);
+});
+
+// 需求：使用 websocket 实现实时后台系统日志推送展示
 </script>
 
 <style scoped lang="scss">

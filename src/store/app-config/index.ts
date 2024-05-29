@@ -23,10 +23,13 @@ export const useAppConfigStore = defineStore('APP_CONFIG', {
         algorithm.push(darkAlgorithm);
       }
     } catch (e) {
-      console.error(e, '🍍');
+      console.error(e, '🍍 APP_CONFIG');
     }
     return {
       theme: {
+        token: {
+          colorPrimary: '#00b96b',
+        },
         algorithm,
         components: {
           Button: {},
@@ -60,6 +63,13 @@ export const useAppConfigStore = defineStore('APP_CONFIG', {
         this.theme.algorithm.pop();
       }
     },
+    setThemePrimaryColor(color?: string) {
+      color ??= this.theme.token?.colorPrimary;
+      document.body.setAttribute('style', `--app-symbol-primary: ${color}`);
+      if (this.theme.token) {
+        this.theme.token.colorPrimary = color;
+      }
+    },
     setAuthorization(authorization: IAppConfigState['authorization']) {
       this.authorization = authorization;
     },
@@ -73,6 +83,6 @@ export const useAppConfigStore = defineStore('APP_CONFIG', {
   persist: {
     // CONFIG OPTIONS HERE
     beforeRestore(context) {},
-    paths: ['themeScheme', 'layout', 'authorization'],
+    paths: ['theme.token', 'themeScheme', 'layout', 'authorization'],
   },
 });

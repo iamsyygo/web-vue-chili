@@ -7,6 +7,7 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    2: typeof import('./src/components/color-pick/index copy 2.vue')['default']
     ABadge: typeof import('ant-design-vue/es')['Badge']
     AButton: typeof import('ant-design-vue/es')['Button']
     ACheckbox: typeof import('ant-design-vue/es')['Checkbox']
@@ -14,6 +15,7 @@ declare module 'vue' {
     ADescriptions: typeof import('ant-design-vue/es')['Descriptions']
     ADescriptionsItem: typeof import('ant-design-vue/es')['DescriptionsItem']
     ADivider: typeof import('ant-design-vue/es')['Divider']
+    ADropdownButton: typeof import('ant-design-vue/es')['DropdownButton']
     AForm: typeof import('ant-design-vue/es')['Form']
     AFormItem: typeof import('ant-design-vue/es')['FormItem']
     AInput: typeof import('ant-design-vue/es')['Input']
@@ -41,9 +43,16 @@ declare module 'vue' {
     ATag: typeof import('ant-design-vue/es')['Tag']
     ATimeline: typeof import('ant-design-vue/es')['Timeline']
     ATimelineItem: typeof import('ant-design-vue/es')['TimelineItem']
+    ATooltip: typeof import('ant-design-vue/es')['Tooltip']
+    ColorPick: typeof import('./src/components/color-pick/index.vue')['default']
+    copy: typeof import('./src/components/color-pick/index copy.vue')['default']
+    'Index copy 2': typeof import('./src/components/color-pick/index copy 2.vue')['default']
     Loading: typeof import('./src/components/Loading.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SymbolIcon: typeof import('./src/components/SymbolIcon.vue')['default']
+    ThemeSwitch: typeof import('./src/components/ThemeSwitch.vue')['default']
+    XScorell: typeof import('./src/components/XScorell.vue')['default']
+    XScroll: typeof import('./src/components/XScroll.vue')['default']
   }
 }

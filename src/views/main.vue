@@ -8,6 +8,11 @@ import AppLayout from '@/components/AppLayout.vue';
 import { AppMenuItemMeta } from '@/components/layout';
 import { useAppConfigStore } from '@/store/app-config';
 
+definePage({
+  meta: {},
+  redirect: '/main/mind',
+});
+
 const router = useRouter();
 const { useToken } = extTheme;
 const { token } = useToken();
@@ -15,6 +20,7 @@ const appconfig = useAppConfigStore();
 
 onMounted(() => {
   const routes = router.getRoutes();
+  appconfig.setThemePrimaryColor();
   console.log(routes, '🔥');
 });
 
@@ -42,14 +48,19 @@ function onRoutes2MenuTrees(routes: RouteRecordRaw[]) {
     <AppLayout :menus="menus" :layout="appconfig.layout">
       <template #logo="{ collapsed }">
         <div class="logo" :style="{ padding: collapsed ? '6px 10px' : '6px 12px' }">
-          🛵
+          💫
           <transition :duration="{ enter: 3000, leave: 0 }" name="logo-title">
             <h5 v-show="!collapsed">iamsyygo</h5>
           </transition>
         </div>
       </template>
       <template #header>
-        <AppHeader @change="appconfig.setThemeScheme" :themeScheme="appconfig.themeScheme" />
+        <AppHeader
+          @change="appconfig.setThemeScheme"
+          :themeScheme="appconfig.themeScheme"
+          :primary-color="appconfig.theme.token?.colorPrimary"
+          @update:primary-color="appconfig.setThemePrimaryColor"
+        />
       </template>
     </AppLayout>
   </a-config-provider>

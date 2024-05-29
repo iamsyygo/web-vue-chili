@@ -13,7 +13,7 @@
                 visibilityToggle
                 visible
                 size="large"
-                placeholder="🔑 请输入密码"
+                placeholder="请输入密码"
               />
               <a-input-search v-model:value="formModel.code" loading>
                 <template #enterButton>
@@ -57,6 +57,7 @@ import { ref, reactive, onMounted } from 'vue';
 import { message } from 'ant-design-vue';
 import { useLoading } from '@/hooks/loading.h';
 import { onSendEmailCodeApi, onLoginApi } from '@/api/login.api';
+import { getSysMenus } from '@/api/menu.api';
 import { onAnthGitHubUser } from '@/api/github-sign.api';
 import { useAppConfigStore } from '@/store/app-config';
 import { useRouter, useRoute } from 'vue-router';
@@ -105,14 +106,7 @@ const handleEmailCode = async () => {
 
 const sign = ref(false);
 const appConfigStore = useAppConfigStore();
-const setUser = (data: any) => {
-  appConfigStore.setAuthorization({
-    accessToken: data.access_token,
-    refreshToken: data.refresh_token,
-    user: data.user,
-  });
-  return router.push('/main');
-};
+
 const handleSign = async () => {
   if (!formModel.value.email || !formModel.value.password || !formModel.value.code) {
     message.error('请填写完整');
@@ -123,11 +117,23 @@ const handleSign = async () => {
     email: formModel.value.email,
     password: formModel.value.password,
     code: formModel.value.code,
-  }).finally(() => {
+  }).catch(() => {
     sign.value = false;
   });
-
   setUser(data);
+};
+const setUser = (data: any) => {
+  appConfigStore.setAuthorization({
+    accessToken: data.access_token,
+    refreshToken: data.refresh_token,
+    user: data.user,
+  });
+  getSysMenus().then((data) => {
+    console.log(data);
+    // router.push('/main').finally(() => {
+    //   sign.value = false;
+    // });
+  });
 };
 
 const handleSignInGitHub = () => {
