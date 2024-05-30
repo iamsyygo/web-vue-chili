@@ -21,7 +21,7 @@
             :icon="pane.icon || 'ninsuofangwendeyemianbucunzai-quanju'"
             style="margin-right: 3px"
           />
-          {{ pane.title || pane.path }}
+          {{ pane.name || pane.path }}
         </template>
       </a-tab-pane>
     </a-tabs>

@@ -7,45 +7,28 @@ import AppHeader from '@/components/AppHeader.vue';
 import AppLayout from '@/components/AppLayout.vue';
 import { AppMenuItemMeta } from '@/components/layout';
 import { useAppConfigStore } from '@/store/app-config';
+import { useAppMenu2RouteStore } from '@/store/app-menu';
 
 definePage({
   meta: {},
-  redirect: '/main/mind',
+  // redirect: '/main/mind',
+  // redirect: '/main',
 });
 
 const router = useRouter();
 const { useToken } = extTheme;
 const { token } = useToken();
 const appconfig = useAppConfigStore();
+const appMenu2Route = useAppMenu2RouteStore();
 
 onMounted(() => {
-  const routes = router.getRoutes();
   appconfig.setThemePrimaryColor();
-  console.log(routes, '🔥');
 });
-
-const menus = computed<AppMenuItemMeta[]>(() => {
-  const routes = router.getRoutes();
-  return onRoutes2MenuTrees(routes);
-});
-
-// @ts-expect-error
-function onRoutes2MenuTrees(routes: RouteRecordRaw[]) {
-  if (!routes?.length) return;
-  return routes.map((rt) => {
-    return {
-      icon: rt.meta?.icon,
-      path: rt.path,
-      title: rt.meta?.title,
-      children: onRoutes2MenuTrees(rt.children!),
-    };
-  });
-}
 </script>
 
 <template>
   <a-config-provider :theme="appconfig.theme" componentSize="middle">
-    <AppLayout :menus="menus" :layout="appconfig.layout">
+    <AppLayout :menus="appMenu2Route.menus[0].children" :layout="appconfig.layout">
       <template #logo="{ collapsed }">
         <div class="logo" :style="{ padding: collapsed ? '6px 10px' : '6px 12px' }">
           💫

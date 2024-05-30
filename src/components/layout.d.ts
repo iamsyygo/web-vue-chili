@@ -15,7 +15,7 @@ export type LayoutType = {
 };
 
 export type AppMenuItemMeta = {
-  title: string;
+  name: string;
   icon: string;
   path: string;
   children?: AppMenuItemMeta[];

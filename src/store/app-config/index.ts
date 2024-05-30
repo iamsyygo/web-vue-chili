@@ -4,7 +4,6 @@ import type { IAppConfigState } from './type';
 import { getAuthorization } from '@/utils';
 const { compactAlgorithm, darkAlgorithm, defaultAlgorithm, defaultSeed } = theme;
 
-// const { token } = useToken();
 const token = defaultAlgorithm(defaultSeed);
 
 // You can name the return value of `defineStore()` anything you want,

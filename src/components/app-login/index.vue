@@ -36,13 +36,13 @@
             </a-space>
           </div>
 
-          <a-space>
+          <!-- <a-space>
             <a-button type="link" size="small" @click="handleSignInGitHub"
               >使用 github 登录</a-button
             >
             <a-button type="link" size="small">注册账号</a-button>
             <a href="javascript:;">忘记密码</a>
-          </a-space>
+          </a-space> -->
         </div>
         <div class="signin-illustration">
           <img src="./images/illustration.svg" alt="illustration" />
@@ -60,6 +60,7 @@ import { onSendEmailCodeApi, onLoginApi } from '@/api/login.api';
 import { getSysMenus } from '@/api/menu.api';
 import { onAnthGitHubUser } from '@/api/github-sign.api';
 import { useAppConfigStore } from '@/store/app-config';
+import { useAppMenu2RouteStore } from '@/store/app-menu';
 import { useRouter, useRoute } from 'vue-router';
 import { inject } from 'vue';
 import { GLOBAL_SYMBOL_BY_INJECT } from '@/utils/global.symbol';
@@ -128,12 +129,17 @@ const setUser = (data: any) => {
     refreshToken: data.refresh_token,
     user: data.user,
   });
-  getSysMenus().then((data) => {
-    console.log(data);
-    // router.push('/main').finally(() => {
-    //   sign.value = false;
-    // });
-  });
+  getSysMenus()
+    .then((data) => {
+      const appMenuStore = useAppMenu2RouteStore();
+      // @ts-expect-error
+      appMenuStore.$patch({ menus: data.menus, mpaths: data.paths });
+      appMenuStore.initializeRoutes('/main');
+    })
+    .finally(() => {
+      sign.value = false;
+      // router.push('/main');
+    });
 };
 
 const handleSignInGitHub = () => {

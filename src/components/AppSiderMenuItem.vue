@@ -2,16 +2,16 @@
   <a-menu-item
     :key="menu.path"
     v-if="!menu.children"
-    :icon="menu.icon || 'ninsuofangwendeyemianbucunzai-quanju'"
-    :title="menu.title || menu.path"
+    :title="menu.name"
     class="app-sider-menu-item"
+    :menu-icon="menu.icon"
   >
     <a-icon>
       <template #component>
         <symbol-icon :icon="menu.icon" style="margin-right: 6px"></symbol-icon>
       </template>
     </a-icon>
-    <span class="app-sider-menu-item--title">{{ menu.title || menu.path }}</span>
+    <span class="app-sider-menu-item--title">{{ menu.name || menu.path }}</span>
     <a-badge status="processing" style="float: right" v-if="$route.path === menu.path" />
   </a-menu-item>
   <a-sub-menu :key="menu.path" v-if="menu.children">
@@ -22,7 +22,7 @@
             <symbol-icon :icon="menu.icon" style="margin-right: 6px"></symbol-icon>
           </template>
         </a-icon>
-        <span class="app-sider-menu-item--title">{{ menu.title }}</span>
+        <span class="app-sider-menu-item--title">{{ menu.name }}</span>
       </span>
     </template>
     <app-sider-menu-item v-for="item in menu.children" :key="item.path" :menu="item" />

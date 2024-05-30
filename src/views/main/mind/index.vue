@@ -1,6 +1,8 @@
 <template>
-  <div ref="containerRef" class="w-full h-full"></div>
-  <TeleportShape />
+  <div class="w-full h-full">
+    <div ref="containerRef" class="w-full h-full"></div>
+    <TeleportShape />
+  </div>
 </template>
 
 <script setup lang="ts">

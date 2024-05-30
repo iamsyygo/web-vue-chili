@@ -48,7 +48,7 @@
               v-if="route.meta?.keepAlive === false"
               class="app-router-view"
             >
-              <transition v-bind="transProps">
+              <transition v-bind="transitionProps" mode="out-in">
                 <component :is="Component" :route-meta="route.meta" :key="route.fullPath">
                   <!-- some slot content -->
                 </component>
@@ -56,7 +56,7 @@
             </router-view>
 
             <router-view v-slot="{ Component, route }" class="app-router-view">
-              <transition v-bind="transProps">
+              <transition v-bind="transitionProps" mode="out-in">
                 <keep-alive :max="12">
                   <component
                     :is="Component"
@@ -104,8 +104,8 @@ const selectKeys = ref<any>([]);
 
 function onSelectMenu({ item, key }: SelectInfo) {
   setRoute({
-    icon: item.icon,
-    title: item.title as string,
+    icon: item['menu-icon'],
+    name: item.title as string,
     path: key as string,
   });
 }
@@ -123,15 +123,16 @@ watchEffect(() => {
   activeKey.value = path;
   selectKeys.value = [path];
   if (path !== '/' && !records.value.length) {
+    // 这里的图标取不对✅
     setRoute({
       icon: route.meta.icon as string,
       path: path,
-      title: route.meta.title as string,
+      name: route.meta.title as string,
     });
   }
 });
 
-const transProps: TransitionProps = {
+const transitionProps: TransitionProps = {
   name: 'app-top-page',
   appear: true,
   mode: 'out-in',

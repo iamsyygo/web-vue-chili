@@ -14,6 +14,7 @@ import SymbolIcon from '@/components/SymbolIcon.vue';
 
 const pinia = createPinia();
 pinia.use(persistedstate);
+
 const app = createApp(App);
 app.use(router);
 app.use(pinia);
