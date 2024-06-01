@@ -1,5 +1,4 @@
 import { createApp } from 'vue';
-import { createPinia } from 'pinia';
 import '@unocss/reset/normalize.css';
 import 'ant-design-vue/dist/reset.css';
 // https://prazdevs.github.io/pinia-plugin-persistedstate/guide/why.html
@@ -10,6 +9,7 @@ import 'animate.css';
 import './style.css';
 import App from './App.vue';
 import router from '@/router';
+import { createPinia } from 'pinia';
 import SymbolIcon from '@/components/SymbolIcon.vue';
 
 const pinia = createPinia();

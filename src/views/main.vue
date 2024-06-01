@@ -8,6 +8,7 @@ import AppLayout from '@/components/AppLayout.vue';
 import { AppMenuItemMeta } from '@/components/layout';
 import { useAppConfigStore } from '@/store/app-config';
 import { useAppMenu2RouteStore } from '@/store/app-menu';
+import { watch } from 'vue';
 
 definePage({
   meta: {},
@@ -55,7 +56,8 @@ $name: App;
   overflow: hidden;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  // justify-content: space-between;
+  gap: 10px;
   margin: 8px;
   padding: 6px 12px;
   font-size: 25px;
@@ -66,7 +68,7 @@ $name: App;
     font-weight: 700;
   }
 
-  animation: logoframe 10s infinite;
+  // animation: logoframe 10s infinite;
 }
 @keyframes logoframe {
   0% {

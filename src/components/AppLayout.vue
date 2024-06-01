@@ -113,9 +113,10 @@ function onSelectMenu({ item, key }: SelectInfo) {
 // cache the opened menu
 const records = ref<AppMenuItemMeta[]>([]);
 function setRoute(mu: AppMenuItemMeta) {
-  const has = records.value.find((r) => r.path === mu.path);
-  if (!has) records.value.push(mu);
-  router.push(mu.path);
+  router.push(mu.path).finally(() => {
+    const has = records.value.find((r) => r.path === mu.path);
+    if (!has) records.value.push(mu);
+  });
 }
 
 watchEffect(() => {

@@ -7,8 +7,6 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import { routes } from 'vue-router/auto-routes';
 
 // 🐞 Depending on the order of imports this will fail
-// const stroe = useAppConfigStore();
-
 const uninitpaths = ['/main', '/:404(.*)'];
 const initRoutes: RouteRecordRaw[] = [];
 // 等待被处理的路由
@@ -20,6 +18,9 @@ routes.forEach((route: RouteRecordRaw) => {
     initRoutes.push(route);
   }
 });
+
+console.log(waitRoutes, 'waitRoutes');
+
 const router = createRouter({
   // https://developer.mozilla.org/zh-CN/docs/Web/API/Window/popstate_event
   history: createWebHistory(),
@@ -29,7 +30,6 @@ const router = createRouter({
   // },
   routes: initRoutes,
 });
-// console.log(router.getRoutes(), '🚥');
 
 router.beforeEach((to, from, next) => {
   // console.log(to, from, '✅');

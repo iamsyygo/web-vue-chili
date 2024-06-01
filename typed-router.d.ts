@@ -30,6 +30,8 @@ declare module 'vue-router/auto-routes' {
     '/main/luminescence/': RouteRecordInfo<'/main/luminescence/', '/main/luminescence', Record<never, never>, Record<never, never>>,
     '/main/mind/': RouteRecordInfo<'/main/mind/', '/main/mind', Record<never, never>, Record<never, never>>,
     '/main/mind/vue-shape/dropdown': RouteRecordInfo<'/main/mind/vue-shape/dropdown', '/main/mind/vue-shape/dropdown', Record<never, never>, Record<never, never>>,
+    '/main/roles/': RouteRecordInfo<'/main/roles/', '/main/roles', Record<never, never>, Record<never, never>>,
+    '/main/roles/src/table-plus/': RouteRecordInfo<'/main/roles/src/table-plus/', '/main/roles/src/table-plus', Record<never, never>, Record<never, never>>,
     '/main/rsa/': RouteRecordInfo<'/main/rsa/', '/main/rsa', Record<never, never>, Record<never, never>>,
     '/main/test/': RouteRecordInfo<'/main/test/', '/main/test', Record<never, never>, Record<never, never>>,
   }

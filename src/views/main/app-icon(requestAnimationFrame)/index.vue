@@ -23,7 +23,7 @@ definePage({
   meta: {
     title: '图标预览（requestAnimationFrame 版）',
     icon: 'box',
-    keepAlive: false,
+    keepAlive: true,
   },
 });
 

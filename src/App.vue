@@ -22,7 +22,6 @@ const updateSpin = () => (spinning.value = !spinning.value);
 provide(GLOBAL_SYMBOL_BY_INJECT.SPINNING, { spinning, updateSpin });
 
 const appMenuStore = useAppMenu2RouteStore();
-
 const path = location.pathname;
 appMenuStore.initializeRoutes(path);
 </script>

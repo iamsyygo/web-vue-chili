@@ -21,9 +21,11 @@ export const useAppConfigStore = defineStore('APP_CONFIG', {
       if (local.themeScheme === 'dark') {
         algorithm.push(darkAlgorithm);
       }
+      document.body.setAttribute('data-app-theme', local.themeScheme);
     } catch (e) {
       console.error(e, '🍍 APP_CONFIG');
     }
+
     return {
       theme: {
         token: {
@@ -32,6 +34,7 @@ export const useAppConfigStore = defineStore('APP_CONFIG', {
         algorithm,
         components: {
           Button: {},
+          Table: {},
         },
       },
       themeScheme: 'light',
@@ -53,6 +56,7 @@ export const useAppConfigStore = defineStore('APP_CONFIG', {
   actions: {
     setThemeScheme(scheme: IAppConfigState['themeScheme']) {
       this.themeScheme = scheme;
+      document.body.setAttribute('data-app-theme', scheme);
       if (scheme === 'dark' && Array.isArray(this.theme.algorithm)) {
         this.theme.algorithm.push(darkAlgorithm);
       }
@@ -64,6 +68,7 @@ export const useAppConfigStore = defineStore('APP_CONFIG', {
     },
     setThemePrimaryColor(color?: string) {
       color ??= this.theme.token?.colorPrimary;
+
       document.body.setAttribute('style', `--app-symbol-primary: ${color}`);
       if (this.theme.token) {
         this.theme.token.colorPrimary = color;

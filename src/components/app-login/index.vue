@@ -62,7 +62,7 @@ import { onAnthGitHubUser } from '@/api/github-sign.api';
 import { useAppConfigStore } from '@/store/app-config';
 import { useAppMenu2RouteStore } from '@/store/app-menu';
 import { useRouter, useRoute } from 'vue-router';
-import { inject } from 'vue';
+import { inject, nextTick } from 'vue';
 import { GLOBAL_SYMBOL_BY_INJECT } from '@/utils/global.symbol';
 
 const router = useRouter();
@@ -132,13 +132,15 @@ const setUser = (data: any) => {
   getSysMenus()
     .then((data) => {
       const appMenuStore = useAppMenu2RouteStore();
+
+      // patch 可能耗时 https://pinia.vuejs.org/zh/core-concepts/state.html#mutating-the-state
       // @ts-expect-error
       appMenuStore.$patch({ menus: data.menus, mpaths: data.paths });
+      console.log(JSON.stringify(appMenuStore.mpaths));
       appMenuStore.initializeRoutes('/main');
     })
     .finally(() => {
       sign.value = false;
-      // router.push('/main');
     });
 };
 

@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { RouteRecordRaw } from 'vue-router';
 import { waitRoutes, default as router } from '@/router';
-import { useRouter } from 'vue-router';
+import { cloneDeep } from 'lodash-es';
 
 interface AppMenuState {
   mpaths: string[];
@@ -40,7 +40,7 @@ export const useAppMenu2RouteStore = defineStore('APP_MENU', {
           return acc;
         }, [] as RouteRecordRaw[]);
       };
-      const routes = filter(waitRoutes, '/');
+      const routes = filter(cloneDeep(waitRoutes), '/');
       routes.forEach((route) => {
         router.addRoute(route);
       });
