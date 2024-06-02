@@ -5,7 +5,7 @@ import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers';
 import { fileURLToPath, URL } from 'node:url';
-
+import vueJsx from '@vitejs/plugin-vue-jsx';
 // https://github.com/posva/unplugin-vue-router
 import VueRouter from 'unplugin-vue-router/vite';
 import { VueRouterAutoImports } from 'unplugin-vue-router';
@@ -18,6 +18,7 @@ import { Plugin as ImportCdn } from 'vite-plugin-cdn-import';
 export default defineConfig({
   // 插入cdn
   plugins: [
+    vueJsx(),
     VueRouter({
       routesFolder: ['src/views'],
       // Exclude directories prefixed with “_”

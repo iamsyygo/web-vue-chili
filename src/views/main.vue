@@ -1,22 +1,20 @@
 <script setup lang="ts">
 import { theme as extTheme } from 'ant-design-vue';
-import { computed, onMounted } from 'vue';
-import { useRouter } from 'vue-router';
-
+import { onMounted } from 'vue';
 import AppHeader from '@/components/AppHeader.vue';
 import AppLayout from '@/components/AppLayout.vue';
-import { AppMenuItemMeta } from '@/components/layout';
 import { useAppConfigStore } from '@/store/app-config';
 import { useAppMenu2RouteStore } from '@/store/app-menu';
-import { watch } from 'vue';
+import zhCN from 'ant-design-vue/es/locale/zh_CN';
+import dayjs from 'dayjs';
+import 'dayjs/locale/zh-cn';
+dayjs.locale('zh-cn');
 
 definePage({
   meta: {},
-  // redirect: '/main/mind',
   // redirect: '/main',
 });
 
-const router = useRouter();
 const { useToken } = extTheme;
 const { token } = useToken();
 const appconfig = useAppConfigStore();
@@ -28,7 +26,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <a-config-provider :theme="appconfig.theme" componentSize="middle">
+  <a-config-provider :theme="appconfig.theme" componentSize="middle" :locale="zhCN">
     <AppLayout :menus="appMenu2Route.menus[0].children" :layout="appconfig.layout">
       <template #logo="{ collapsed }">
         <div class="logo" :style="{ padding: collapsed ? '6px 10px' : '6px 12px' }">

@@ -35,6 +35,10 @@ export const useAppConfigStore = defineStore('APP_CONFIG', {
         components: {
           Button: {},
           Table: {},
+          Form: {
+            sizeStep: 20,
+            sizeSM: 24,
+          },
         },
       },
       themeScheme: 'light',

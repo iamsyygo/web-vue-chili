@@ -21,13 +21,17 @@ import { createVNode, onMounted, reactive, ref } from 'vue';
 import { CellVnode } from './CellVnode';
 import { IBodyCell, IColumnItem } from './type';
 import { IPageCommonParams } from '@/api/type';
+// @ts-expect-error
+import dayjs from 'dayjs';
 
 const { useToken } = theme;
 const { token } = useToken();
 
+// token.value.zIndexPopupBase
+
 // 🔧 CombineUnitedKeys<T> 太多可能导致消耗性能问题
 // type UnColumnKeys = (typeof columns)[number]['key'] | CombineUnitedKeys<T>
-type UnColumnKeys = (typeof columns)[number]['key'];
+// type UnColumnKeys = (typeof columns)[number]['key'];
 type UnPromisify<T> = T extends Promise<infer U> ? U : T;
 type UnPromisifyList = UnPromisify<ReturnType<typeof fetchApi>>['list'];
 
@@ -40,7 +44,8 @@ const { columns = [], fetchApi } = defineProps<{
 }>();
 
 const slots = defineSlots<{
-  [key in UnColumnKeys]?: (body: IBodyCell<T, R>) => any;
+  // [key in UnColumnKeys]?: (body: IBodyCell<T, R>) => any;
+  [key in T]?: (body: IBodyCell<T, R>) => any;
 }>();
 
 const data = ref<UnPromisifyList>([]);
@@ -66,6 +71,7 @@ onMounted(() => {
 const pagination: TablePaginationConfig = reactive({
   current: 1,
   pageSize: 10,
+  update: '',
   pageSizeOptions: ['10', '20', '50', '100'],
   total: 0,
   size: 'default',
@@ -74,13 +80,15 @@ const pagination: TablePaginationConfig = reactive({
   showQuickJumper: true,
   showTotal: (total: number) => {
     return createVNode('span', null, [
+      // @ts-expect-error
+      '上次更新时间：' + pagination.update,
       createVNode(ReloadOutlined, {
         size: 'small',
         onClick: () => getData(),
-        style: { marginRight: '10px' },
+        style: { margin: '0 12px' },
       }),
 
-      ' 共 ',
+      '共 ',
       createVNode('a', null, total),
       ' 条',
     ]);
@@ -106,6 +114,8 @@ function getData() {
     // @ts-expect-error
     data.value = list;
     pagination.total = total;
+    // @ts-expect-error
+    pagination.update = dayjs().format('YYYY-MM-DD HH:mm:ss');
   });
 }
 
@@ -118,6 +128,10 @@ function setSeqValue(index: number) {
 function setRowclassname(_record: any, index: number) {
   return index % 2 === 1 ? 'table-striped' : '';
 }
+
+defineExpose({
+  getData: getData,
+});
 </script>
 <style lang="scss">
 thead.ant-table-thead th.ant-table-cell {
