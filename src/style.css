@@ -49,3 +49,26 @@ h6 {
 .app-loading--wrapper .ant-spin {
   max-height: 100% !important;
 }
+
+@keyframes animation {
+  0% {
+    fill: white;
+    stroke: #333;
+    stroke-dasharray: 2718;
+    stroke-dashoffset: 2718;
+  }
+  50% {
+    fill: white;
+    stroke: #333;
+    stroke-dasharray: 2718;
+    stroke-dashoffset: 0;
+  }
+  75% {
+    fill: #e5e7e7;
+    stroke: white;
+  }
+  100% {
+    fill: #90c9c4;
+    stroke: white;
+  }
+}

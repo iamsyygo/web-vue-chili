@@ -12,7 +12,7 @@ dayjs.locale('zh-cn');
 
 definePage({
   meta: {},
-  // redirect: '/main',
+  redirect: '/main/omni',
 });
 
 const { useToken } = extTheme;
@@ -30,10 +30,9 @@ onMounted(() => {
     <AppLayout :menus="appMenu2Route.menus[0].children" :layout="appconfig.layout">
       <template #logo="{ collapsed }">
         <div class="logo" :style="{ padding: collapsed ? '6px 10px' : '6px 12px' }">
-          💫
           <transition :duration="{ enter: 3000, leave: 0 }" name="logo-title">
-            <h5 v-show="!collapsed">iamsyygo</h5>
-          </transition>
+            <img style="height: 30px" src="/logo.svg" v-show="!collapsed" /> </transition
+          >...
         </div>
       </template>
       <template #header>
@@ -54,7 +53,7 @@ $name: App;
   overflow: hidden;
   display: flex;
   align-items: center;
-  // justify-content: space-between;
+  justify-content: center;
   gap: 10px;
   margin: 8px;
   padding: 6px 12px;

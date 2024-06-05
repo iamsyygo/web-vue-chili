@@ -1,6 +1,7 @@
 import { FormItemProps, FormProps } from 'ant-design-vue/es/form';
 import {
   InputProps,
+  InputNumberProps,
   SelectProps,
   SelectOption,
   RadioProps,
@@ -15,14 +16,14 @@ import {
   SliderProps,
   RateProps,
   ColorProps,
-  PasswordProps,
-  NumberProps,
+  InputPassword,
   TextProps,
   HiddenProps,
 } from 'ant-design-vue/es';
 
 type FormComponentype =
   | 'input'
+  | 'number'
   | 'select'
   //   | 'radio'
   | 'radio-group'
@@ -37,7 +38,6 @@ type FormComponentype =
   | 'rate'
   | 'color'
   | 'password'
-  | 'number'
   | 'text'
   | 'hidden';
 
@@ -46,24 +46,34 @@ interface IDefaultProps {
   props?: any;
 }
 interface IInputProps {
-  component: 'input';
-  props: InputProps;
+  component: 'number';
+  props?: InputProps;
 }
+
+interface IInputNumberProps {
+  component: 'input-number';
+  props?: InputNumberProps;
+}
+
 interface ISelectProps {
   component: 'select';
-  props: SelectProps;
+  props?: SelectProps;
 }
 interface IRadioGroupProps {
   component: 'radio-group';
-  props: RadioGroupProps;
+  props?: RadioGroupProps;
 }
 interface ICheckboxGroupProps {
   component: 'checkbox-group';
-  props: CheckboxGroupProps;
+  props?: CheckboxGroupProps;
 }
 interface ITextAreaProps {
   component: 'textarea';
-  props: TextAreaProps;
+  props?: TextAreaProps;
+}
+interface IDatePickerProps {
+  component: 'date';
+  props?: DatePickerProps;
 }
 
 export interface IBaseFormItem<T> extends FormItemProps {
@@ -74,6 +84,7 @@ export interface IBaseFormItem<T> extends FormItemProps {
 type UnitedProps =
   | IDefaultProps
   | IInputProps
+  | IInputNumberProps
   | ISelectProps
   | IRadioGroupProps
   | ICheckboxGroupProps

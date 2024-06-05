@@ -14,7 +14,7 @@ export interface RoleData {
   description: string;
 }
 
-export const fetchRoleList = (params: IRoleParams) => {
+export const fetchRoleData = (params: IRoleParams) => {
   return axios.get<IRoleParams, IResponseData<RoleData>>('/api/role/list', { params });
 };
 export const deleteRoleById = (params: RoleData) => {
@@ -29,4 +29,9 @@ export const updateRole = (params: RoleData) => {
 // 新增
 export const addRole = (params: RoleData) => {
   return axios.post('/api/role', params);
+};
+
+// 根据实体保存
+export const saveRole = (body: Partial<RoleData>) => {
+  return axios.post('/api/role/save', body);
 };

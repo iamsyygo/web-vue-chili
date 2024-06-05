@@ -7,25 +7,22 @@ export const tableColumns = defineColumns([
     align: 'center',
     fixed: 'left',
   },
+
   {
-    title: '角色名称',
-    key: 'name',
+    title: '用户名',
+    key: 'username',
   },
   {
-    title: '角色值',
-    key: 'value',
+    title: '邮箱',
+    key: 'email',
   },
   {
-    title: '角色状态',
-    key: 'status',
+    title: '电话',
+    key: 'phoneNumber',
   },
   {
     title: '创建时间',
     key: 'createDate',
-  },
-  {
-    title: '角色描述',
-    key: 'description',
   },
   {
     title: '操作',

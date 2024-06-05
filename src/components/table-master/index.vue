@@ -1,19 +1,23 @@
 <template>
-  <a-table
-    ref="tableRef"
-    class="ant-table-striped w-full"
-    :columns="columns"
-    :data-source="data"
-    :row-class-name="setRowclassname"
-    :pagination="pagination"
-  >
-    <template #bodyCell="body">
-      <cell-vnode :body="body" :slots="slots" />
-    </template>
-  </a-table>
+  <div class="table-master">
+    <div class="table-master-above" v-if="slots['table-above']">
+      <slot name="table-above" />
+    </div>
+    <a-table
+      ref="tableRef"
+      class="ant-table-striped w-full"
+      :columns="columns"
+      :data-source="data"
+      :row-class-name="setRowclassname"
+      :pagination="pagination"
+    >
+      <template #bodyCell="body">
+        <cell-vnode :body="body" :slots="slots" />
+      </template>
+    </a-table>
+  </div>
 </template>
 <script lang="ts" setup generic="T extends Key,R = Record<keyof any,any>">
-import { fetchRoleList } from '@/api/role.api';
 import { ReloadOutlined } from '@ant-design/icons-vue';
 import { Table, TablePaginationConfig, theme } from 'ant-design-vue';
 import { Key } from 'ant-design-vue/es/table/interface';
@@ -43,10 +47,14 @@ const { columns = [], fetchApi } = defineProps<{
   fetchApi: (pageOptions: ITablePageOpton) => Promise<{ list: R[]; total: number }>;
 }>();
 
-const slots = defineSlots<{
-  // [key in UnColumnKeys]?: (body: IBodyCell<T, R>) => any;
-  [key in T]?: (body: IBodyCell<T, R>) => any;
-}>();
+const slots = defineSlots<
+  {
+    // [key in UnColumnKeys]?: (body: IBodyCell<T, R>) => any;
+    [key in T]?: (body: IBodyCell<T, R>) => any;
+  } & {
+    'table-above'?: () => any;
+  }
+>();
 
 const data = ref<UnPromisifyList>([]);
 const tableRef = ref<InstanceType<typeof Table>>();
@@ -78,6 +86,7 @@ const pagination: TablePaginationConfig = reactive({
   responsive: true,
   showSizeChanger: true,
   showQuickJumper: true,
+  style: { margin: '6px 0' },
   showTotal: (total: number) => {
     return createVNode('span', null, [
       // @ts-expect-error
@@ -139,9 +148,20 @@ thead.ant-table-thead th.ant-table-cell {
 }
 .ant-table-striped .table-striped td {
   background-color: #fafafa;
-  // background-color: v-bind('token.colorPrimaryBg');
 }
 [data-app-theme='dark'] .ant-table-striped .table-striped td {
   background-color: rgb(29, 29, 29);
+}
+
+.table-master {
+  padding: 6px 6px 0;
+  background-color: #fff;
+  // wrap radius = inner radius + padding
+  // border-radius: 14px;
+  border-radius: 8px;
+}
+.table-master-above {
+  display: flex;
+  padding-bottom: 6px;
 }
 </style>

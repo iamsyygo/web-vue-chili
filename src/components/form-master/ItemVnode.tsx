@@ -2,6 +2,7 @@ import { defineComponent } from 'vue';
 import { FormPlusItem } from './type';
 import {
   Input,
+  InputNumber,
   Select,
   Radio,
   RadioGroup,
@@ -33,6 +34,9 @@ function getComponent(item: FormPlusItem<string | number>, model: any) {
   switch (item.component) {
     case 'input': {
       return <Input v-model={[model[item.name], 'value']} {...props} />;
+    }
+    case 'input-number': {
+      return <InputNumber v-model={[model[item.name], 'value']} {...props} />;
     }
     case 'select': {
       return <Select v-model={[model[item.name], 'value']} {...props} />;

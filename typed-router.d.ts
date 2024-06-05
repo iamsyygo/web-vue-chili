@@ -30,10 +30,10 @@ declare module 'vue-router/auto-routes' {
     '/main/luminescence/': RouteRecordInfo<'/main/luminescence/', '/main/luminescence', Record<never, never>, Record<never, never>>,
     '/main/mind/': RouteRecordInfo<'/main/mind/', '/main/mind', Record<never, never>, Record<never, never>>,
     '/main/mind/vue-shape/dropdown': RouteRecordInfo<'/main/mind/vue-shape/dropdown', '/main/mind/vue-shape/dropdown', Record<never, never>, Record<never, never>>,
+    '/main/omni/': RouteRecordInfo<'/main/omni/', '/main/omni', Record<never, never>, Record<never, never>>,
     '/main/roles/': RouteRecordInfo<'/main/roles/', '/main/roles', Record<never, never>, Record<never, never>>,
-    '/main/roles/src/form-plus/': RouteRecordInfo<'/main/roles/src/form-plus/', '/main/roles/src/form-plus', Record<never, never>, Record<never, never>>,
-    '/main/roles/src/table-plus/': RouteRecordInfo<'/main/roles/src/table-plus/', '/main/roles/src/table-plus', Record<never, never>, Record<never, never>>,
     '/main/rsa/': RouteRecordInfo<'/main/rsa/', '/main/rsa', Record<never, never>, Record<never, never>>,
     '/main/test/': RouteRecordInfo<'/main/test/', '/main/test', Record<never, never>, Record<never, never>>,
+    '/main/user/': RouteRecordInfo<'/main/user/', '/main/user', Record<never, never>, Record<never, never>>,
   }
 }

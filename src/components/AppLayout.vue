@@ -76,17 +76,15 @@
   </a-layout>
 </template>
 <script lang="ts" setup>
-import { ref, watchEffect, TransitionProps } from 'vue';
-import { useRouter, useRoute } from 'vue-router';
-import { LeftOutlined } from '@ant-design/icons-vue';
 import LayoutTab from '@/components/AppLayoutTab.vue';
 import AppSiderMenuItem from '@/components/AppSiderMenuItem.vue';
-import { SelectInfo } from 'ant-design-vue/es/menu/src/interface';
 import { AppMenuItemMeta, LayoutType } from '@/components/layout';
+import { LeftOutlined } from '@ant-design/icons-vue';
 import { theme } from 'ant-design-vue';
-import { onMounted } from 'vue';
+import { SelectInfo } from 'ant-design-vue/es/menu/src/interface';
 import { debounce } from 'lodash-es';
-import { onBeforeUnmount } from 'vue';
+import { TransitionProps, onBeforeUnmount, onMounted, ref, watchEffect } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 const { useToken } = theme;
 const { token } = useToken();
 
@@ -202,10 +200,10 @@ $-app-layout-header-height: calc(v-bind('layout.header.height') * 1px);
 }
 
 .app-top-page-enter-active {
-  animation: fadeInRightBig 0.5s;
+  animation: fadeInRightBig forwards 0.3s;
 }
 .app-top-page-leave-active {
-  animation: zoomOut 0.3s;
+  animation: fadeOut 0.2s;
 }
 
 .app-content-wrapper {
