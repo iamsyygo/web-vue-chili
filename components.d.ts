@@ -66,6 +66,7 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SymbolIcon: typeof import('./src/components/SymbolIcon.vue')['default']
+    'Tab2button.vue': typeof import('./src/components/tab2button.vue/index.vue')['default']
     TableMaster: typeof import('./src/components/table-master/index.vue')['default']
     ThemeSwitch: typeof import('./src/components/ThemeSwitch.vue')['default']
     XScorell: typeof import('./src/components/XScorell.vue')['default']

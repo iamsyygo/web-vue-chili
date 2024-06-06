@@ -6,6 +6,10 @@ import { option as orderOptions } from './options/order';
 import { option as goodsOptions } from './options/goods';
 import { option as marketingOptions } from './options/marketing';
 import * as echarts from 'echarts';
+import Tab2button from '@/components/tab2button.vue/index.vue';
+import { fetchGithubCommits } from '@/api/omni.api';
+import { Key } from 'ant-design-vue/es/_util/type';
+import { watch } from 'vue';
 definePage({
   meta: {
     title: '首页中心',
@@ -58,7 +62,13 @@ const items = reactive([
   },
 ]);
 
+type Repo = 'web-vue-chili' | 'web-nest-goggles';
+
 const elRef = ref<(HTMLDivElement | null)[]>([]);
+const commits = ref<any[]>([]);
+const progressActivekey = ref<Repo>('web-vue-chili');
+
+const spinning = ref(false);
 onMounted(() => {
   items.forEach((item, index) => {
     const chart = echarts.init(elRef.value[index]);
@@ -66,7 +76,28 @@ onMounted(() => {
     // @ts-expect-error
     item.instance = instance;
   });
+
+  getCommits(progressActivekey.value);
 });
+
+function onProgressActiveChange(params: Key) {
+  getCommits(params as Repo);
+}
+
+function getCommits(params: Repo) {
+  spinning.value = true;
+  fetchGithubCommits({
+    owner: 'iamsyygo',
+    repo: params,
+  })
+    .then((data) => {
+      // @ts-expect-error
+      commits.value = data;
+    })
+    .finally(() => {
+      spinning.value = false;
+    });
+}
 </script>
 
 <template>
@@ -83,15 +114,48 @@ onMounted(() => {
               </div>
               <span class="font-700 font-size-40px">{{ item.value }}</span>
             </div>
-            <!-- <a-progress type="circle" :percent="75" :size="90" /> -->
             <div ref="elRef" class="w-60% h-80%"></div>
           </div>
         </div>
       </a-col>
     </a-row>
-    <div class="w-full h-100px bg-#fff rounded-10px mt-10px border-3px border-solid border-#EAEDF5">
-      <div class="p-20px">这是一个占位的底部区域</div>
-    </div>
+    <a-row :gutter="[10, 10]" class="mt-6px">
+      <a-col :span="16" :xxl="16" :xl="16" :lg="14" :md="12" :sm="24" :xs="24">
+        <div class="h-full bg-#fff rounded-10px p-10px"></div>
+      </a-col>
+      <a-col :span="8" :xxl="8" :xl="8" :lg="10" :md="12" :sm="24" :xs="24">
+        <div class="h-full bg-#fff rounded-10px pl-15px pt-5px pb-10px">
+          <div
+            class="h-38px b-b-2px border-b-#E6EAF3 b-b-solid font-size-14px fw-600 flex items-center justify-between mr-10px"
+          >
+            项目记录
+            <Tab2button v-model:active-key="progressActivekey" @change="onProgressActiveChange">
+              <a-tab-pane key="web-vue-chili" tab="前端"></a-tab-pane>
+              <a-tab-pane key="web-nest-goggles" tab="后端" force-render></a-tab-pane>
+            </Tab2button>
+          </div>
+          <a-spin :spinning="spinning" size="large">
+            <div class="h-50vh overflow-auto pt-18px pr-10px">
+              <a-timeline>
+                <a-timeline-item
+                  color="green"
+                  v-for="commit in commits"
+                  :key="commit.sha"
+                  :style="{
+                    whiteSpace: 'pre-wrap',
+                  }"
+                >
+                  {{ commit.commit.message }}
+                </a-timeline-item>
+              </a-timeline>
+            </div>
+          </a-spin>
+        </div>
+      </a-col>
+    </a-row>
+    <div
+      class="w-full h-100px bg-#fff rounded-10px mt-10px border-3px border-solid border-#EAEDF5 p-10px"
+    ></div>
   </div>
 </template>
 <style scoped lang="scss">
@@ -110,7 +174,7 @@ $--item-radius: 8px;
   height: 100%;
   border-radius: 10px;
   z-index: 99;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.7);
   transition: all 0.3s;
 }
 .card-overlay:hover {

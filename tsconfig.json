@@ -29,6 +29,7 @@
   },
   "include": [
     "src/**/*.ts",
+    "src/**/*.api.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
     "auto-imports.d.ts",
