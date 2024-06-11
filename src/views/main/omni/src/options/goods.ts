@@ -17,39 +17,6 @@ let ht = [1100, 1200, 800, 900, 1000, 400, 500, 1200, 1150, 800, 1026, 1300];
 export let option = {
   tooltip: {
     trigger: 'axis',
-    axisPointer: {
-      lineStyle: {
-        color: {
-          type: 'linear',
-          x: 0,
-          y: 0,
-          x2: 0,
-          y2: 1,
-          colorStops: [
-            {
-              offset: 0,
-              color: 'rgba(0, 255, 233,0)',
-            },
-            {
-              offset: 0.5,
-              color: 'rgba(255, 255, 255,1)',
-            },
-            {
-              offset: 1,
-              color: 'rgba(0, 255, 233,0)',
-            },
-          ],
-          global: false,
-        },
-      },
-    },
-    textStyle: {
-      color: '#fff',
-    },
-    backgroundColor: 'rgba(0, 58, 99, 0.8)', //设置背景颜色
-    borderColor: 'rgba(0, 58, 99, 0.8)',
-    confine: true,
-    formatter: '{b}：{c}份合同',
   },
   grid: {
     top: '14%',

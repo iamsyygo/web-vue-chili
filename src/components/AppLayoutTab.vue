@@ -81,6 +81,8 @@ $-tab-radius: 8px;
 }
 
 .app-tabs-wrapper {
+  position: relative;
+  z-index: 999;
   padding-top: 3px;
   background-color: v-bind('token.colorBgElevated');
 }
