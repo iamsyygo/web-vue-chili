@@ -31,6 +31,7 @@ declare module 'vue-router/auto-routes' {
     '/main/mind/': RouteRecordInfo<'/main/mind/', '/main/mind', Record<never, never>, Record<never, never>>,
     '/main/mind/vue-shape/dropdown': RouteRecordInfo<'/main/mind/vue-shape/dropdown', '/main/mind/vue-shape/dropdown', Record<never, never>, Record<never, never>>,
     '/main/omni/': RouteRecordInfo<'/main/omni/', '/main/omni', Record<never, never>, Record<never, never>>,
+    '/main/omni/src/Amap/': RouteRecordInfo<'/main/omni/src/Amap/', '/main/omni/src/Amap', Record<never, never>, Record<never, never>>,
     '/main/roles/': RouteRecordInfo<'/main/roles/', '/main/roles', Record<never, never>, Record<never, never>>,
     '/main/rsa/': RouteRecordInfo<'/main/rsa/', '/main/rsa', Record<never, never>, Record<never, never>>,
     '/main/test/': RouteRecordInfo<'/main/test/', '/main/test', Record<never, never>, Record<never, never>>,

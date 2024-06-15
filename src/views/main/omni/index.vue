@@ -12,6 +12,7 @@ import { fetchGithubCommits } from '@/api/omni.api';
 import { tableColumns as columns } from './src/columns';
 import dayjs from 'dayjs';
 import { fetchDatabaseData } from '@/api/database.api';
+import Amap from './src/Amap/index.vue';
 definePage({
   meta: {
     title: '首页中心',
@@ -171,6 +172,8 @@ function fetchDataApi(params: any) {
         </div>
       </a-col>
     </a-row>
+    <Amap />
+
     <a-row :gutter="[10, 10]" class="mt-6px">
       <a-col :span="16" :xxl="16" :xl="16" :lg="14" :md="12" :sm="24" :xs="24">
         <div
