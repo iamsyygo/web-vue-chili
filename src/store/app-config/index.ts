@@ -50,7 +50,8 @@ export const useAppConfigStore = defineStore('APP_CONFIG', {
         },
         header: {
           height: 50,
-          backgroundColor: '#CADFFB',
+          // backgroundColor: '#CADFFB',
+          backgroundColor: 'var(--primary-color-bg)',
         },
       },
       authorization: getAuthorization() as IAppConfigState['authorization'],
@@ -72,7 +73,6 @@ export const useAppConfigStore = defineStore('APP_CONFIG', {
     },
     setThemePrimaryColor(color?: string) {
       color ??= this.theme.token?.colorPrimary;
-
       document.body.setAttribute('style', `--app-symbol-primary: ${color}`);
       if (this.theme.token) {
         this.theme.token.colorPrimary = color;

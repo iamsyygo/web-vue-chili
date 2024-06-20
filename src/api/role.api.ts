@@ -31,6 +31,11 @@ export const addRole = (params: RoleData) => {
   return axios.post('/api/role', params);
 };
 
+// 获取所有
+export const fetchRoleAll = () => {
+  return axios.get<any, RoleData[]>('/api/role');
+};
+
 // 根据实体保存
 export const saveRole = (body: Partial<RoleData>) => {
   return axios.post('/api/role/save', body);

@@ -9,11 +9,7 @@
     >
       <slot name="logo" :collapsed="collapsed" :layout="layout"> </slot>
 
-      <left-outlined
-        :rotate="collapsed ? 180 : 0"
-        class="app-sider-collapse--target"
-        @click="collapsed = !collapsed"
-      />
+      <left-outlined :rotate="collapsed ? 180 : 0" class="app-sider-collapse--target" @click="collapsed = !collapsed" />
       <slot name="menu">
         <a-menu
           v-model:active-key="activeKey"
@@ -43,11 +39,7 @@
         />
         <div class="app-content-wrapper" ref="contentWrapRef">
           <slot>
-            <router-view
-              v-slot="{ Component, route }"
-              v-if="route.meta?.keepAlive === false"
-              class="app-router-view"
-            >
+            <router-view v-slot="{ Component, route }" v-if="route.meta?.keepAlive === false" class="app-router-view">
               <transition v-bind="transitionProps" mode="out-in">
                 <component :is="Component" :route-meta="route.meta" :key="route.fullPath">
                   <!-- some slot content -->
@@ -80,11 +72,11 @@ import LayoutTab from '@/components/AppLayoutTab.vue';
 import AppSiderMenuItem from '@/components/AppSiderMenuItem.vue';
 import { AppMenuItemMeta, LayoutType } from '@/components/layout';
 import { LeftOutlined } from '@ant-design/icons-vue';
-import { theme } from 'ant-design-vue';
 import { SelectInfo } from 'ant-design-vue/es/menu/src/interface';
 import { debounce } from 'lodash-es';
 import { TransitionProps, onBeforeUnmount, onMounted, ref, watchEffect } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { theme } from 'ant-design-vue';
 const { useToken } = theme;
 const { token } = useToken();
 

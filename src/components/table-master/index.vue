@@ -4,12 +4,14 @@
       <slot name="table-above" />
     </div>
     <a-table
+      :scroll="{ x: 'max-content' }"
       ref="tableRef"
       class="ant-table-striped w-full"
       :columns="columns"
       :data-source="data"
       :row-class-name="setRowclassname"
       :pagination="pagination"
+      v-bind="$attrs"
     >
       <template #bodyCell="body">
         <cell-vnode :body="body" :slots="slots" />
@@ -25,7 +27,6 @@ import { createVNode, onMounted, reactive, ref } from 'vue';
 import { CellVnode } from './CellVnode';
 import { IBodyCell, IColumnItem } from './type';
 import { IPageCommonParams } from '@/api/type';
-// @ts-expect-error
 import dayjs from 'dayjs';
 
 const { useToken } = theme;
@@ -55,6 +56,10 @@ const slots = defineSlots<
     'table-above'?: () => any;
   }
 >();
+// @ts-expect-error
+slots['seq'] ??= (body: IBodyCell<T, R>) => {
+  return setSeqValue(body.index);
+};
 
 const data = ref<UnPromisifyList>([]);
 const tableRef = ref<InstanceType<typeof Table>>();
@@ -115,10 +120,11 @@ const pagination: TablePaginationConfig = reactive({
   },
 });
 
-function getData() {
+function getData(query?: Parameters<typeof fetchApi>[0]) {
   fetchApi({
     page: pagination.current,
     pageSize: pagination.pageSize,
+    ...query,
   }).then(({ list, total }) => {
     // @ts-expect-error
     data.value = list;

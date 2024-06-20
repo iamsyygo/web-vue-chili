@@ -1,10 +1,5 @@
 import { message as antMessage } from 'ant-design-vue';
-import type {
-  AxiosError,
-  AxiosInstance,
-  AxiosResponse,
-  InternalAxiosRequestConfig as AxiosRequestConfig,
-} from 'axios';
+import type { AxiosError, AxiosInstance, AxiosResponse, InternalAxiosRequestConfig as AxiosRequestConfig } from 'axios';
 import axios from 'axios';
 import { ERequestErrorStatusCode, AxiosResponseResult } from './type.d';
 import { useAppConfigStore } from '@/store/app-config';

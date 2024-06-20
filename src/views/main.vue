@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { theme as extTheme } from 'ant-design-vue';
-import { onMounted } from 'vue';
+import { onMounted, watch } from 'vue';
 import AppHeader from '@/components/AppHeader.vue';
 import AppLayout from '@/components/AppLayout.vue';
 import { useAppConfigStore } from '@/store/app-config';
@@ -8,6 +8,8 @@ import { useAppMenu2RouteStore } from '@/store/app-menu';
 import zhCN from 'ant-design-vue/es/locale/zh_CN';
 import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
+import { getAllDict } from '@/api';
+import { setlocalDictionary } from '@/utils/dictionary';
 dayjs.locale('zh-cn');
 
 definePage({
@@ -20,8 +22,18 @@ const { token } = useToken();
 const appconfig = useAppConfigStore();
 const appMenu2Route = useAppMenu2RouteStore();
 
+watch(
+  () => token.value.colorPrimary,
+  (color) => {
+    document.documentElement.style.setProperty('--primary-color-bg', token.value.colorPrimaryBg);
+  }
+);
+
 onMounted(() => {
   appconfig.setThemePrimaryColor();
+  getAllDict().then((res) => {
+    setlocalDictionary(res);
+  });
 });
 </script>
 
@@ -46,7 +58,6 @@ onMounted(() => {
     </AppLayout>
   </a-config-provider>
 </template>
-
 <style scoped lang="scss">
 $name: App;
 .logo {

@@ -27,6 +27,7 @@ const props = defineProps<TabsProps>();
   background-color: #fff;
   height: 80%;
   border-radius: 4px;
+  box-shadow: 0px 3px 8px 0px rgba(0, 0, 0, 0.12), 0px 3px 1px 0px rgba(0, 0, 0, 0.04);
 }
 :deep(.ant-tabs-tab) {
   margin: 0;

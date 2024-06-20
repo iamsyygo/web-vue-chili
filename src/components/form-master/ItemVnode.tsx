@@ -17,7 +17,7 @@ import {
 } from 'ant-design-vue';
 export const ItemVnode = defineComponent({
   props: {
-    item: { type: Object as () => FormPlusItem<string | number>, required: true },
+    item: { type: Object as () => FormPlusItem<any>, required: true },
     // formProps: { type: Object as () => FormProps, default: () => ({}) },
     slots: { type: Object as () => Record<string, Function>, default: () => ({}) },
     model: { type: Object, required: true },
@@ -33,7 +33,7 @@ function getComponent(item: FormPlusItem<string | number>, model: any) {
   const props = Object.assign(item.props || {});
   switch (item.component) {
     case 'input': {
-      return <Input v-model={[model[item.name], 'value']} {...props} />;
+      return <Input v-model={[model[item.name], 'value']} {...props} autocomplete="off" />;
     }
     case 'input-number': {
       return <InputNumber v-model={[model[item.name], 'value']} {...props} />;
@@ -50,11 +50,11 @@ function getComponent(item: FormPlusItem<string | number>, model: any) {
 
     // 💡 unfinish code
     case 'textarea': {
-      return <Input.TextArea v-model={[model[item.name], 'value']} {...props} />;
+      return <Input.TextArea v-model={[model[item.name], 'value']} {...props} autocomplete="off" />;
     }
 
     default: {
-      return <Input v-model={[model[item.name], 'value']} placeholder="请输入" {...props} />;
+      return <Input v-model={[model[item.name], 'value']} placeholder="请输入" {...props} autocomplete="off" />;
     }
   }
 }

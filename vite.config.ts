@@ -27,7 +27,11 @@ export default defineConfig({
       // importMode: 'async',
     }),
     Unocss(),
-    Vue(),
+    Vue({
+      script: {
+        propsDestructure: true,
+      },
+    }),
     AutoImport({
       resolvers: [AntDesignVueResolver({})],
       imports: [VueRouterAutoImports],

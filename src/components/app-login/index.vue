@@ -17,12 +17,7 @@
               />
               <a-input-search v-model:value="formModel.code" loading>
                 <template #enterButton>
-                  <a-button
-                    type="primary"
-                    :loading="flag.loading"
-                    :disabled="flag.loading"
-                    @click="handleEmailCode"
-                  >
+                  <a-button type="primary" :loading="flag.loading" :disabled="flag.loading" @click="handleEmailCode">
                     <span v-if="flag.text === '重新发送'">{{ countdown }}</span>
                     {{ flag.text }}
                   </a-button>
@@ -30,9 +25,7 @@
               </a-input-search>
 
               <a-checkbox v-model:checked="formModel.remember">记住密码</a-checkbox>
-              <a-button type="primary" size="large" @click="handleSign" :loading="sign"
-                >登 录</a-button
-              >
+              <a-button type="primary" size="large" @click="handleSign" :loading="sign">登 录</a-button>
             </a-space>
           </div>
 
@@ -64,6 +57,8 @@ import { useAppMenu2RouteStore } from '@/store/app-menu';
 import { useRouter, useRoute } from 'vue-router';
 import { inject, nextTick } from 'vue';
 import { GLOBAL_SYMBOL_BY_INJECT } from '@/utils/global.symbol';
+import { getAllDict } from '@/api';
+import { setlocalDictionary } from '@/utils/dictionary';
 
 const router = useRouter();
 const { flag, setLoading } = useLoading('发送验证码');
@@ -121,6 +116,9 @@ const handleSign = async () => {
   }).catch(() => {
     sign.value = false;
   });
+  // getAllDict().then((dictionary) => {
+  //   setlocalDictionary(dictionary);
+  // });
   setUser(data);
 };
 const setUser = (data: any) => {
@@ -134,7 +132,6 @@ const setUser = (data: any) => {
       const appMenuStore = useAppMenu2RouteStore();
 
       // patch 可能耗时 https://pinia.vuejs.org/zh/core-concepts/state.html#mutating-the-state
-      // @ts-expect-error
       appMenuStore.$patch({ menus: data.menus, mpaths: data.paths });
       console.log(JSON.stringify(appMenuStore.mpaths));
       appMenuStore.initializeRoutes('/main');
@@ -290,6 +287,5 @@ onMounted(async () => {
   }
 }
 </style>
-import { useLoading } from '@/hooks/loading.h';import { useLoading } from '@/hooks/loading.h';
-import { useLoading } from '@/hooks/loading.h'; , himport { onSendEmailCode } from
-'@/api/login.api';onSendEmailCodeApi,
+import { useLoading } from '@/hooks/loading.h';import { useLoading } from '@/hooks/loading.h'; import { useLoading }
+from '@/hooks/loading.h'; , himport { onSendEmailCode } from '@/api/login.api';onSendEmailCodeApi,

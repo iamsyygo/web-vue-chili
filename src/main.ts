@@ -6,7 +6,7 @@ import persistedstate from 'pinia-plugin-persistedstate';
 import 'virtual:uno.css';
 import 'animate.css';
 
-import './style.scss';
+import './scss/style.scss';
 import App from './App.vue';
 import router from '@/router';
 import { createPinia } from 'pinia';

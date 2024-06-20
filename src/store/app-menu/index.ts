@@ -2,16 +2,20 @@ import { defineStore } from 'pinia';
 import { RouteRecordRaw } from 'vue-router';
 import { waitRoutes, default as router } from '@/router';
 import { cloneDeep } from 'lodash-es';
+import { MenuData } from '@/api/menu.api';
 
 interface AppMenuState {
-  mpaths: string[];
+  // mpaths: string[];
+  mpaths: Record<MenuData['path'], MenuData | null>;
   menus: RouteRecordRaw[];
 }
 
 export const useAppMenu2RouteStore = defineStore('APP_MENU', {
   state(): AppMenuState {
     return {
-      mpaths: ['/main'],
+      mpaths: {
+        '/main': null,
+      },
       menus: [],
     };
   },
@@ -31,12 +35,19 @@ export const useAppMenu2RouteStore = defineStore('APP_MENU', {
             path = prefix;
           }
           // 不在菜单中的路由不注册
-          if (!this.mpaths.includes(path)) return acc;
+          const remoteRoute = this.mpaths[path];
+          if (!remoteRoute) return acc;
 
           if (route.children) {
             route.children = filter(route.children, path);
           }
-          acc.push(route);
+          acc.push({
+            ...route,
+            meta: {
+              ...(route.meta || {}),
+              ...(remoteRoute.meta || {}),
+            },
+          });
           return acc;
         }, [] as RouteRecordRaw[]);
       };

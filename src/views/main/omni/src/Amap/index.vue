@@ -129,7 +129,7 @@ onMounted(() => {});
 <style lang="scss">
 .plane-box {
   position: absolute;
-  z-index: 9999;
+  z-index: 9;
   top: 0;
   left: 0;
   transform-origin: 50% 50%;

@@ -14,14 +14,7 @@
       </template>
     </TableMaster>
     <a-drawer v-model:open="visible" title="编辑角色" width="50%">
-      <FormMaster
-        v-model:model="formModel"
-        ref="formRef"
-        :items
-        :form-props
-        @update:model="onUpdateModel"
-      >
-      </FormMaster>
+      <FormMaster ref="formRef" :items :form-props @update:model="onUpdateModel"> </FormMaster>
       <template #footer>
         <a-space warp>
           <a-button @click="visible = false">取消</a-button>
@@ -105,4 +98,3 @@ function onSubmit() {
 </script>
 
 <style scoped></style>
-./src/form-master/index.vue ./src/table-master/index.vue
