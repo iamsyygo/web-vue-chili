@@ -1,3 +1,5 @@
+// https://vitejs.dev/guide/performance.html#avoid-barrel-files
+
 export * from './role.api';
 export * from './menu.api';
 export * from './dict.api';

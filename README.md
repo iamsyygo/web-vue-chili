@@ -1,5 +1,26 @@
 # web-vue-chili(🌶️)
 
+### 📝 Description
+
+使用 vue3 + vite5 + typescript + antdv + unocss + pinia
+
+### 📦 Install
+
+```bash
+pnpm install
+```
+
+### 🚀 Run
+
+```bash
+pnpm run dev
+```
+
+### 👀 Preview
+
+![alt text](./_imags/image1.png)
+![alt text](./_imags/image2.png)
+
 ### 🙋🏻‍♂️ Problem
 
 - `<router-view>` can no longer be used directly inside `<transition>` or `<keep-alive>`.
