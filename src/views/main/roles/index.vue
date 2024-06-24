@@ -14,7 +14,8 @@
       </template>
     </TableMaster>
     <a-drawer v-model:open="visible" title="编辑角色" width="50%">
-      <FormMaster ref="formRef" :items :form-props @update:model="onUpdateModel"> </FormMaster>
+      <FormMaster ref="formRef" v-model:model="formModel" :items :form-props @update:model="onUpdateModel">
+      </FormMaster>
       <template #footer>
         <a-space warp>
           <a-button @click="visible = false">取消</a-button>
@@ -40,11 +41,11 @@ const visible = ref(false);
 type UnPromisify<T> = T extends Promise<infer U> ? U : T;
 type UnPromisifyData<Api extends (...args: any) => Promise<any>> = UnPromisify<ReturnType<Api>>;
 type UnData = UnPromisifyData<typeof fetchRoleData>['list'] extends (infer U)[] ? U : never;
-const formModel: UnwrapRef<Partial<UnData>> = reactive({});
+const formModel = ref<Partial<UnData>>({});
 const formProps: FormProps = {
   labelCol: { span: 5 },
   wrapperCol: { span: 13 },
-  model: formModel,
+  // model: formModel,
   rules: {
     name: [{ required: true, message: '请输入角色名称', trigger: 'blur' }],
   },
@@ -60,10 +61,12 @@ const initModel = items.reduce(
 );
 function onOpenDrawer(record?: RoleData) {
   if (!record?.id) {
-    Object.assign(formModel, initModel);
+    // Object.assign(formModel, initModel);
+    formModel.value = initModel;
   }
   visible.value = true;
-  Object.assign(formModel, record);
+  // Object.assign(formModel, record);
+  formModel.value = record;
 }
 function onUpdateModel(val: UnwrapRef<Partial<UnData>>) {
   // Object.assign(formModel, val);

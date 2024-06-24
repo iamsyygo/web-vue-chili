@@ -5,7 +5,7 @@ import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers';
 import { fileURLToPath, URL } from 'node:url';
-import vueJsx from '@vitejs/plugin-vue-jsx';
+import VueJsx from '@vitejs/plugin-vue-jsx';
 // https://github.com/posva/unplugin-vue-router
 import VueRouter from 'unplugin-vue-router/vite';
 import { VueRouterAutoImports } from 'unplugin-vue-router';
@@ -18,7 +18,7 @@ import { Plugin as ImportCdn } from 'vite-plugin-cdn-import';
 export default defineConfig({
   // 插入cdn
   plugins: [
-    vueJsx(),
+    VueJsx(),
     VueRouter({
       routesFolder: ['src/views'],
       // Exclude directories prefixed with “_”
@@ -61,6 +61,10 @@ export default defineConfig({
     },
   },
   server: {
+    // 预热文件以提前转换和缓存结果。这改善了服务器启动期间的初始页面加载，并防止了转换瀑布。
+    warmup: {
+      clientFiles: ['./src/components/*.vue'],
+    },
     port: 3000,
     proxy: {
       '/api': {

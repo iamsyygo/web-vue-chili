@@ -40,6 +40,11 @@ export const formItems = defineFormItms([
     props: {
       placeholder: '请输入',
     },
+    controlled: {
+      destroy(prop, model) {
+        return model.status === '0';
+      },
+    },
   },
 ]);
 

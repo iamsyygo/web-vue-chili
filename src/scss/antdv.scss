@@ -18,7 +18,7 @@
   transition: background-color 0.3s;
   border-radius: 6px;
   &:hover {
-    background-color: #f5f5f5;
+    background-color: var(--primary-color-hover);
   }
   &:has(.ant-tree-node-content-wrapper.ant-tree-node-selected) {
     background-color: var(--primary-color-bg);

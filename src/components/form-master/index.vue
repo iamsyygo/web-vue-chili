@@ -1,6 +1,6 @@
 <template>
-  <a-form ref="formRef" size="large" v-bind="formProps" :model="proxyModel">
-    <a-form-item v-for="item in items" :key="item.name" v-bind="item" :name="item.name">
+  <a-form ref="formRef" size="large" v-bind="formProps" :model="proxyModel" v-auto-animate>
+    <a-form-item v-for="item in formItems" :key="item.name" v-bind="item" :name="item.name">
       <!-- <template v-for="partName in partsSlots" #[partName]>
         <slot :name="`${item.name}-${partName}`" :model="formModel" />
         <slot :name="partName" :model="formModel" />
@@ -16,9 +16,7 @@ import { FormProps } from 'ant-design-vue/es/form';
 import { FormPlusItem } from './type';
 import { ItemVnode } from './ItemVnode';
 import { computed } from 'vue';
-import { formItems } from '@/views/main/menu/formItems';
-import { emit } from 'process';
-
+import { vAutoAnimate } from '@formkit/auto-animate';
 type UnFormItemsKeys = (typeof props.items)[number]['name'];
 type UnModelRecord = Partial<Record<UnFormItemsKeys, any>>;
 // 全局的 slots
@@ -49,11 +47,11 @@ const emits = defineEmits<{
   'update:model': [UnModelRecord];
 }>();
 
-const initailValues = formItems.reduce((acc, item) => {
-  // @ts-expect-error
-  acc[item.name] = typeof props.model?.[item.name] === 'undefined' ? item.defaultValue : props.model[item.name];
-  return acc;
-}, {} as Record<string, any>);
+// const initailValues = formItems.reduce((acc, item) => {
+//   // @ts-expect-error
+//   acc[item.name] = typeof props.model?.[item.name] === 'undefined' ? item.defaultValue : props.model[item.name];
+//   return acc;
+// }, {} as Record<string, any>);
 const proxyModel = computed({
   get() {
     if (!props.model) {
@@ -79,6 +77,18 @@ const proxyModel = computed({
 // proxyModel.value[item.name] = props.model?.[item.name] ?? item.defaultValue;
 // });
 // emits('update:model', initailValues);
+
+const formItems = computed(() => {
+  return props.items.filter((item) => {
+    if (typeof item.controlled === 'undefined') return true;
+    if (typeof item.controlled === 'object') {
+      return typeof item.controlled.destroy === 'boolean'
+        ? !item.controlled.destroy
+        : !item.controlled.destroy?.(item, props.model);
+    }
+    throw new Error('controlled 类型错误');
+  });
+});
 
 defineExpose({
   getForm: () => formRef.value,

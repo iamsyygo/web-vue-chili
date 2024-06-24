@@ -1,8 +1,6 @@
 import { useAppConfigStore } from '@/store/app-config';
-// vue-router/auto a little strange
 // import { createRouter, createWebHistory } from 'vue-router/auto';
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
-
 // @ts-expect-error
 import { routes } from 'vue-router/auto-routes';
 
@@ -18,8 +16,6 @@ routes.forEach((route: RouteRecordRaw) => {
     initRoutes.push(route);
   }
 });
-
-console.log(waitRoutes, 'waitRoutes');
 
 const router = createRouter({
   // https://developer.mozilla.org/zh-CN/docs/Web/API/Window/popstate_event

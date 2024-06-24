@@ -10,6 +10,7 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
 import { getAllDict } from '@/api';
 import { setlocalDictionary } from '@/utils/dictionary';
+import { AppMenuItemMeta } from '@/components/layout';
 dayjs.locale('zh-cn');
 
 definePage({
@@ -25,7 +26,12 @@ const appMenu2Route = useAppMenu2RouteStore();
 watch(
   () => token.value.colorPrimary,
   (color) => {
-    document.documentElement.style.setProperty('--primary-color-bg', token.value.colorPrimaryBg);
+    const primarybgKey = '--primary-color-bg';
+    const primarybgColor = token.value.colorPrimaryBg;
+    const primaryhoverKey = '--primary-color-hover';
+    const primaryhoverColor = token.value.colorBgTextHover;
+    document.documentElement.style.setProperty(primarybgKey, primarybgColor);
+    document.documentElement.style.setProperty(primaryhoverKey, primaryhoverColor);
   }
 );
 
@@ -39,7 +45,7 @@ onMounted(() => {
 
 <template>
   <a-config-provider :theme="appconfig.theme" componentSize="middle" :locale="zhCN">
-    <AppLayout :menus="appMenu2Route.menus[0].children" :layout="appconfig.layout">
+    <AppLayout :menus="appMenu2Route.menus[0].children as AppMenuItemMeta[]" :layout="appconfig.layout">
       <template #logo="{ collapsed }">
         <div class="logo" :style="{ padding: collapsed ? '6px 10px' : '6px 12px' }">
           <transition :duration="{ enter: 3000, leave: 0 }" name="logo-title">

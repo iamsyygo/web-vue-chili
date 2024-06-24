@@ -81,8 +81,8 @@ export interface IBaseFormItem<T> extends FormItemProps {
   defaultValue?: any;
   // 控制表单项的显示隐藏
   controlled?: {
-    display?: boolean | ((prop: FormPlusItem<T>, model: Record<T, any>) => boolean);
-    destroy?: boolean | ((prop: FormPlusItem<T>, model: Record<T, any>) => boolean);
+    display?: boolean | ((prop: FormPlusItem<T>, model: Partial<Record<T, any>>) => boolean);
+    destroy?: boolean | ((prop: FormPlusItem<T>, model: Partial<Record<T, any>>) => boolean);
   };
 }
 
