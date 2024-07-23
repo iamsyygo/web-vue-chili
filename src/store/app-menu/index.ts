@@ -56,6 +56,10 @@ export const useAppMenu2RouteStore = defineStore('APP_MENU', {
       routes.forEach((route) => {
         router.addRoute(route);
       });
+      router.addRoute({
+        path: Route.MAIN + Route.NOT_FOUND,
+        component: import('@/components/NotFound.vue'),
+      });
       router.isReady().then(() => {
         router.push(to);
       });

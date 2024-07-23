@@ -13,7 +13,10 @@ import Inspect from 'vite-plugin-inspect';
 import VueDevTools from 'vite-plugin-vue-devtools';
 // https://github.com/mmf-fe/vite-plugin-cdn-import/blob/HEAD/README.zh-CN.md
 import { Plugin as ImportCdn } from 'vite-plugin-cdn-import';
+import { createHtmlPlugin } from 'vite-plugin-html';
 import { codeInspectorPlugin } from 'code-inspector-plugin';
+import { resolve } from 'node:path';
+import packageData from './package.json';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -57,6 +60,22 @@ export default defineConfig({
     // VueDevTools(),
     codeInspectorPlugin({
       bundler: 'vite',
+    }),
+    createHtmlPlugin({
+      template: resolve(__dirname, 'index.html'),
+      minify: true,
+      inject: {
+        data: {
+          title: packageData.name,
+          version: packageData.version,
+          logo: '/logo.png',
+        },
+        tags: [
+          { tag: 'script', attrs: { src: '/iconfont.js' } },
+          { tag: 'script', attrs: { src: '/iconfont-remote.js' } },
+          { tag: 'script', attrs: { src: '/iconfont-main.js' } },
+        ],
+      },
     }),
   ],
   resolve: {

@@ -16,7 +16,6 @@ routes.forEach((route: RouteRecordRaw) => {
     initRoutes.push(route);
   }
 });
-
 const router = createRouter({
   // https://developer.mozilla.org/zh-CN/docs/Web/API/Window/popstate_event
   history: createWebHistory(),

@@ -1,18 +1,8 @@
 <template>
-  <div class="flex justify-center items-center w-full">
-    <symbol-icon
-      icon="ninsuofangwendeyemianbucunzai-quanju"
-      :size="600"
-      :color="token.colorPrimaryBorder"
-    />
-  </div>
+  <NotFound> </NotFound>
 </template>
-
 <script setup lang="ts">
-import { theme } from 'ant-design-vue';
-
-const { useToken } = theme;
-const { token } = useToken();
+import NotFound from '@/components/NotFound.vue';
 </script>
 
 <style scoped></style>

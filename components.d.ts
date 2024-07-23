@@ -7,6 +7,7 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    '[...404]': typeof import('./src/components/NotFound.vue')['default']
     2: typeof import('./src/components/color-pick/index copy 2.vue')['default']
     AAvatar: typeof import('ant-design-vue/es')['Avatar']
     ABadge: typeof import('ant-design-vue/es')['Badge']
@@ -66,6 +67,7 @@ declare module 'vue' {
     'Index copy': typeof import('./src/components/form-master/index copy.vue')['default']
     'Index copy 2': typeof import('./src/components/color-pick/index copy 2.vue')['default']
     Loading: typeof import('./src/components/Loading.vue')['default']
+    NotFound: typeof import('./src/components/NotFound.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SymbolIcon: typeof import('./src/components/SymbolIcon.vue')['default']
