@@ -10,6 +10,16 @@ function getDictionaryByKey(key: string) {
   return dictionary[key] || {};
 }
 
+/**
+ * 根据字典分类和 key 获取字典数据映射名称
+ * @param code
+ * @param key
+ * @returns
+ */
+export function getDictionaryLabel(code: string, key: string) {
+  return getDictionaryByKey(code)[key];
+}
+
 // 转换为数组
 function parseDictionary(dictionary: Record<string, any>, type?: 'number' | 'boolean') {
   return Object.entries(dictionary).map(([key, value]) => {

@@ -13,6 +13,7 @@ import Inspect from 'vite-plugin-inspect';
 import VueDevTools from 'vite-plugin-vue-devtools';
 // https://github.com/mmf-fe/vite-plugin-cdn-import/blob/HEAD/README.zh-CN.md
 import { Plugin as ImportCdn } from 'vite-plugin-cdn-import';
+import { codeInspectorPlugin } from 'code-inspector-plugin';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -54,6 +55,9 @@ export default defineConfig({
       ],
     }),
     // VueDevTools(),
+    codeInspectorPlugin({
+      bundler: 'vite',
+    }),
   ],
   resolve: {
     alias: {

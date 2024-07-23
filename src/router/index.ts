@@ -1,11 +1,11 @@
+import { Route } from '@/enums/routes.e';
 import { useAppConfigStore } from '@/store/app-config';
-// import { createRouter, createWebHistory } from 'vue-router/auto';
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 // @ts-expect-error
 import { routes } from 'vue-router/auto-routes';
 
 // 🐞 Depending on the order of imports this will fail
-const uninitpaths = ['/main', '/:404(.*)'];
+const uninitpaths: string[] = [Route.MAIN, Route.NOT_FOUND];
 const initRoutes: RouteRecordRaw[] = [];
 // 等待被处理的路由
 export const waitRoutes: RouteRecordRaw[] = [];
@@ -33,9 +33,9 @@ router.beforeEach((to, from, next) => {
   // the router is installed and pinia will be installed too
   const { authorization, clearAuthorization } = useAppConfigStore();
 
-  if (!authorization?.accessToken && to.path !== '/login') {
+  if (!authorization?.accessToken && to.path !== Route.LOGIN) {
     clearAuthorization();
-    next({ path: '/login' });
+    next({ path: Route.LOGIN });
   }
   next();
 });

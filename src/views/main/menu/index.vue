@@ -1,7 +1,7 @@
 <template>
   <div class="p-10px w-full h-full menu-box">
     <a-input-search v-model:value="searchValue" style="margin-bottom: 8px" placeholder="Search" />
-    <a-tree :tree-data="treeData" :field-names class="p-10px" blockNode :expanded-keys="['/main']">
+    <a-tree :tree-data="treeData" :field-names class="p-10px" blockNode :expanded-keys="[Route.MAIN]">
       <template #title="item">
         <div>
           <span>{{ item.name }}</span>
@@ -82,6 +82,7 @@ import { useAppMenu2RouteStore } from '@/store/app-menu';
 import { FormProps, Modal, message } from 'ant-design-vue';
 import { computed, ref, watch } from 'vue';
 import { formItems as items } from './formItems';
+import { Route } from '@/enums/routes.e';
 
 const appMenu2Route = useAppMenu2RouteStore();
 const searchValue = ref<string>('');

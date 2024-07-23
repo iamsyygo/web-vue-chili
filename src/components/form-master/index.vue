@@ -10,13 +10,11 @@
   </a-form>
 </template>
 <script lang="ts" setup generic="T extends (string|number) ">
-import { watch, ref } from 'vue';
 import { FormProps } from 'ant-design-vue/es/form';
-
-import { FormPlusItem } from './type';
-import { ItemVnode } from './ItemVnode';
-import { computed } from 'vue';
+import { ref, computed } from 'vue';
 import { vAutoAnimate } from '@formkit/auto-animate';
+import { ItemVnode } from './ItemVnode';
+import { FormPlusItem } from './type';
 type UnFormItemsKeys = (typeof props.items)[number]['name'];
 type UnModelRecord = Partial<Record<UnFormItemsKeys, any>>;
 // 全局的 slots

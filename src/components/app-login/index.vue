@@ -59,6 +59,7 @@ import { inject, nextTick } from 'vue';
 import { GLOBAL_SYMBOL_BY_INJECT } from '@/utils/global.symbol';
 import { getAllDict } from '@/api';
 import { setlocalDictionary } from '@/utils/dictionary';
+import { Route } from '@/enums/routes.e';
 
 const router = useRouter();
 const { flag, setLoading } = useLoading('发送验证码');
@@ -134,7 +135,7 @@ const setUser = (data: any) => {
       // patch 可能耗时 https://pinia.vuejs.org/zh/core-concepts/state.html#mutating-the-state
       appMenuStore.$patch({ menus: data.menus, mpaths: data.paths });
       console.log(JSON.stringify(appMenuStore.mpaths));
-      appMenuStore.initializeRoutes('/main');
+      appMenuStore.initializeRoutes(Route.MAIN);
     })
     .finally(() => {
       sign.value = false;

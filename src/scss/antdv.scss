@@ -3,13 +3,10 @@
 }
 .ant-tree .ant-tree-treenode {
   padding: 2px 0;
-  // margin: 1px 0;
 }
 
 .ant-tree .ant-tree-node-content-wrapper.ant-tree-node-selected,
-.ant-tree .ant-tree-checkbox + span.ant-tree-node-selected {
-  background-color: transparent;
-}
+.ant-tree .ant-tree-checkbox + span.ant-tree-node-selected,
 .ant-tree .ant-tree-node-content-wrapper:hover {
   background-color: transparent;
 }
@@ -23,4 +20,9 @@
   &:has(.ant-tree-node-content-wrapper.ant-tree-node-selected) {
     background-color: var(--primary-color-bg);
   }
+}
+
+// 虚化背景
+.ant-drawer-mask {
+  backdrop-filter: saturate(50%) blur(4px);
 }

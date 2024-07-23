@@ -3,6 +3,7 @@ import { RouteRecordRaw } from 'vue-router';
 import { waitRoutes, default as router } from '@/router';
 import { cloneDeep } from 'lodash-es';
 import { MenuData } from '@/api/menu.api';
+import { Route } from '@/enums/routes.e';
 
 interface AppMenuState {
   // mpaths: string[];
@@ -14,13 +15,13 @@ export const useAppMenu2RouteStore = defineStore('APP_MENU', {
   state(): AppMenuState {
     return {
       mpaths: {
-        '/main': null,
+        [Route.MAIN]: null,
       },
       menus: [],
     };
   },
   actions: {
-    initializeRoutes(/* mpath: string, waitRoutes: RouteRecordRaw[] */ to: string = '/main') {
+    initializeRoutes(/* mpath: string, waitRoutes: RouteRecordRaw[] */ to: string = Route.MAIN) {
       const filter = (waitRoutes: RouteRecordRaw[], prefix: string) => {
         return waitRoutes.reduce((acc, route) => {
           let path = route.path;

@@ -722,12 +722,12 @@ export const formItems = defineFormItms([
   {
     label: '状态',
     name: 'status',
-    defaultValue: '1',
+    defaultValue: 1,
     component: 'radio-group',
     props: {
       options: [
-        { label: '启用', value: '1' },
-        { label: '禁用', value: '0' },
+        { label: '启用', value: 1 },
+        { label: '禁用', value: 0 },
       ],
     },
   },

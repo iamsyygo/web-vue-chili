@@ -23,6 +23,7 @@ declare module 'vue-router/auto-routes' {
     '/main': RouteRecordInfo<'/main', '/main', Record<never, never>, Record<never, never>>,
     '/main/app-icon/': RouteRecordInfo<'/main/app-icon/', '/main/app-icon', Record<never, never>, Record<never, never>>,
     '/main/app-icon(requestAnimationFrame)/': RouteRecordInfo<'/main/app-icon(requestAnimationFrame)/', '/main/app-icon(requestAnimationFrame)', Record<never, never>, Record<never, never>>,
+    '/main/config/': RouteRecordInfo<'/main/config/', '/main/config', Record<never, never>, Record<never, never>>,
     '/main/dict/': RouteRecordInfo<'/main/dict/', '/main/dict', Record<never, never>, Record<never, never>>,
     '/main/github-sign/': RouteRecordInfo<'/main/github-sign/', '/main/github-sign', Record<never, never>, Record<never, never>>,
     '/main/horizontal-waterfall/': RouteRecordInfo<'/main/horizontal-waterfall/', '/main/horizontal-waterfall', Record<never, never>, Record<never, never>>,
@@ -37,5 +38,6 @@ declare module 'vue-router/auto-routes' {
     '/main/rsa/': RouteRecordInfo<'/main/rsa/', '/main/rsa', Record<never, never>, Record<never, never>>,
     '/main/test/': RouteRecordInfo<'/main/test/', '/main/test', Record<never, never>, Record<never, never>>,
     '/main/user/': RouteRecordInfo<'/main/user/', '/main/user', Record<never, never>, Record<never, never>>,
+    '/main/workbench/': RouteRecordInfo<'/main/workbench/', '/main/workbench', Record<never, never>, Record<never, never>>,
   }
 }

@@ -8,3 +8,4 @@ export * from './login.api';
 export * from './database.api';
 export * from './omni.api';
 export * from './common.api';
+export * from './config.api';
