@@ -61,25 +61,70 @@ export default defineConfig({
     codeInspectorPlugin({
       bundler: 'vite',
     }),
-    createHtmlPlugin({
-      template: resolve(__dirname, 'index.html'),
-      minify: true,
-      inject: {
-        data: {
-          title: packageData.name,
-          version: packageData.version,
-          logo: '/logo.png',
-          loadingHtml:
-            '<svg class="init-loading"><g><path d="M 50,100 A 1,1 0 0 1 50,0"/></g><g><path d="M 50,75 A 1,1 0 0 0 50,-25"/></g><defs><linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#FF56A1;stop-opacity:1" /><stop offset="100%" style="stop-color:#FF9350;stop-opacity:1" /></linearGradient></defs></svg>',
-          loadingStyle: `<style> .init-loading { overflow: visible; width: 100px; height: 150px; g { animation: slide 2s linear infinite; &:nth-child(2) { animation-delay: 2s / 4; path { animation-delay: 2s / 4; stroke-dasharray: 0px 157px + 1; stroke-dashoffset: 1px; } } } path { stroke: url(#gradient); stroke-width: 20px; stroke-linecap: round; fill: none; stroke-dasharray: 0 157px; stroke-dashoffset: 0; animation: escalade 2s cubic-bezier(0.8, 0, 0.2, 1) infinite; } } @keyframes slide { 0% { transform: translateY(-50px); } 100% { transform: translateY(50px); } } @keyframes escalade { 0% { stroke-dasharray: 0 157px; stroke-dashoffset: 0; } 50% { stroke-dasharray: 157px 157px; stroke-dashoffset: 0; } 100% { stroke-dasharray: 157px 157px; stroke-dashoffset: -(157px - 1); } } </style>`,
-        },
-        tags: [
-          { tag: 'script', attrs: { src: '/iconfont.js' } },
-          { tag: 'script', attrs: { src: '/iconfont-remote.js' } },
-          { tag: 'script', attrs: { src: '/iconfont-main.js' } },
-        ],
-      },
-    }),
+    //     createHtmlPlugin({
+    //       template: resolve(__dirname, 'index.html'),
+    //       minify: true,
+    //       inject: {
+    //         data: {
+    //           title: packageData.name,
+    //           version: packageData.version,
+    //           logo: '/logo.png',
+    //           loadingHtml: `<svg class="ip" viewBox="0 0 256 128" width="256px" height="128px" xmlns="http://www.w3.org/2000/svg"> <defs> <linearGradient id="grad1" x1="0" y1="0" x2="1" y2="0"> <stop offset="0%" stop-color="#5ebd3e" /> <stop offset="33%" stop-color="#ffb900" /> <stop offset="67%" stop-color="#f78200" /> <stop offset="100%" stop-color="#e23838" /> </linearGradient> <linearGradient id="grad2" x1="1" y1="0" x2="0" y2="0"> <stop offset="0%" stop-color="#e23838" /> <stop offset="33%" stop-color="#973999" /> <stop offset="67%" stop-color="#009cdf" /> <stop offset="100%" stop-color="#5ebd3e" /> </linearGradient> </defs> <g fill="none" stroke-linecap="round" stroke-width="16"> <g class="ip__track" stroke="#ddd"> <path d="M8,64s0-56,60-56,60,112,120,112,60-56,60-56" /> <path d="M248,64s0-56-60-56-60,112-120,112S8,64,8,64" /> </g> <g stroke-dasharray="180 656"> <path class="ip__worm1" stroke="url(#grad1)" stroke-dashoffset="0" d="M8,64s0-56,60-56,60,112,120,112,60-56,60-56" /> <path class="ip__worm2" stroke="url(#grad2)" stroke-dashoffset="358" d="M248,64s0-56-60-56-60,112-120,112S8,64,8,64" /> </g> </g> </svg>`,
+    //           loadingStyle: `<style>
+    // .ip {
+    // 	width: 16em;
+    // 	height: 8em;
+    //   position: fixed;
+    //   inset: 0;
+    //   margin: auto;
+    // }
+    // .ip__track {
+    // 	stroke: hsl(var(--hue),90%,90%);
+    // 	transition: stroke var(--trans-dur);
+    // }
+    // .ip__worm1,
+    // .ip__worm2 {
+    // 	animation: worm1 2s linear infinite;
+    // }
+    // .ip__worm2 {
+    // 	animation-name: worm2;
+    // }
+    // @keyframes worm1 {
+    // 	from {
+    // 		stroke-dashoffset: 0;
+    // 	}
+    // 	50% {
+    // 		animation-timing-function: steps(1);
+    // 		stroke-dashoffset: -358;
+    // 	}
+    // 	50.01% {
+    // 		animation-timing-function: linear;
+    // 		stroke-dashoffset: 358;
+    // 	}
+    // 	to {
+    // 		stroke-dashoffset: 0;
+    // 	}
+    // }
+    // @keyframes worm2 {
+    // 	from {
+    // 		stroke-dashoffset: 358;
+    // 	}
+    // 	50% {
+    // 		stroke-dashoffset: 0;
+    // 	}
+    // 	to {
+    // 		stroke-dashoffset: -358;
+    // 	}
+    // }
+    //   </style>`,
+    //         },
+    //         tags: [
+    //           { tag: 'script', attrs: { src: '/iconfont.js' } },
+    //           { tag: 'script', attrs: { src: '/iconfont-remote.js' } },
+    //           { tag: 'script', attrs: { src: '/iconfont-main.js' } },
+    //         ],
+    //       },
+    //     }),
   ],
   resolve: {
     alias: {
@@ -92,6 +137,7 @@ export default defineConfig({
       clientFiles: ['./src/components/*.vue'],
     },
     port: 3000,
+    host: true,
     proxy: {
       '/api': {
         target: 'http://localhost:8080',

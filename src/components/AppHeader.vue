@@ -6,17 +6,13 @@
         <template #content>
           <div class="flex justify-between items-center w-70px">
             <theme-switch v-model="themeValue" @update:model-value="onThemeChange"></theme-switch>
-            <color-pick
-              :modelValue="primaryColor"
-              show-alpha
-              @change="$emit('update:primaryColor', $event)"
-            />
+            <color-pick :modelValue="primaryColor" show-alpha @change="$emit('update:primaryColor', $event)" />
           </div>
         </template>
         <a-button type="text">🎨</a-button>
         <!-- <symbol-icon icon="beauty-makeup" size="25" /> -->
       </a-popover>
-      <a-avatar :src="appconfig.authorization?.user.avatar" class="mr-8px" />
+      <a-avatar :src="appconfig.authorization?.user?.avatar" class="mr-8px" />
     </div>
   </div>
 </template>

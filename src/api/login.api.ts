@@ -5,5 +5,5 @@ export const onSendEmailCodeApi = (email: string) => {
 };
 
 export const onLoginApi = (body: { email: string; password: string; code: string }) => {
-  return axios.post('/api/user/sign-in', body);
+  return axios.post('/api/auth/signin/email', body);
 };

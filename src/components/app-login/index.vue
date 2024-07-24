@@ -122,6 +122,12 @@ const handleSign = async () => {
   // });
   setUser(data);
 };
+onMounted(() => {
+  const search = new URLSearchParams(location.search);
+  const access_token = search.get('access_token');
+  const refresh_token = search.get('refresh_token');
+  setUser({ access_token, refresh_token });
+});
 const setUser = (data: any) => {
   appConfigStore.setAuthorization({
     accessToken: data.access_token,
